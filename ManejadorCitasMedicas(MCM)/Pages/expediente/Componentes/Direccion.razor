@@ -1,0 +1,139 @@
+﻿@inject ProvinciaBLL provinciaBLL
+@inject CiudadBLL ciudadBLL
+@inject SectorBLL sectorBLL
+@inject DistritoBLL distritoBLL
+
+<div class="row">
+    <div class="col-sm-6">
+        @*Provincias*@
+        <label class="form-label">Provincia</label>
+        <select @bind="provincia" @onfocusout="(GetCiudadesByProvincia)" class="form-control">
+              <option value="-1">Seleccione una Provincia</option>
+            @foreach (var item in Provincias)
+            {
+                          <option value="@item.Codigo">@item.Nombre</option>
+            }
+         </select>
+
+        @*Ciudad*@
+        <label class="form-label">Ciudad</label>
+        <select @bind="ciudad" @onfocusout="(GetDistritosByCiudad)" class="form-control">
+            <option value="-1">Seleccione una Ciudad</option>
+            @foreach (var item in Ciudades)
+            {
+                        <option value="@item.Id">@item.Nombre</option>
+            }
+        </select>
+
+        @*Distrito*@
+        <label class="form-label">Distrito Municipal</label>
+        <select @bind="distrito" @onfocusout="(GetSectoresByDistrito)" class="form-control">
+            <option value="-1">Seleccione un Distrito</option>
+            @foreach (var item in Distritos)
+            {
+                <option value="@item.Id">@item.Nombre</option>
+            }
+        </select>
+
+        @*Sector*@
+        <label class="form-label">Sector</label>
+        <InputSelect @bind-Value="sector" class="form-control">
+            <option value="-1">Seleccione un Sector</option>
+            @foreach (var item in Sectores)
+            {
+                  <option value="@item.Id">@item.Nombre</option>
+            }
+        </InputSelect>
+
+
+    </div>
+    <div class="col-sm-6">
+        @*Calle*@
+        <div class="form-group mt-2">
+            <label>Calle</label>
+             <InputText @bind-Value="Expediente.Cedula" class="form-control"/>
+             <ValidationMessage For="(() => Expediente.Cedula)"/>
+        </div>
+
+        @*Edificio/Casa*@
+        <div class="form-group mt-2">
+            <label>Edificio/Csa</label>
+             <InputText @bind-Value="Expediente.Cedula" class="form-control"/>
+             <ValidationMessage For="(() => Expediente.Cedula)"/>
+        </div>
+
+        @*Numero*@
+        <div class="form-group mt-2">
+            <label>Número Apartamento</label>
+             <InputText @bind-Value="Expediente.Cedula" class="form-control"/>
+             <ValidationMessage For="(() => Expediente.Cedula)"/>
+        </div>
+
+        @*Referencia*@
+        <div class="form-group mt-2">
+            <label>Referencia</label>
+             <InputText @bind-Value="Expediente.Cedula" class="form-control"/>
+             <ValidationMessage For="(() => Expediente.Cedula)"/>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                @*Telefono 1*@
+                <div class="form-group mt-2">
+                    <label>Teléfono 1</label>
+                     <InputText @bind-Value="Expediente.Cedula" class="form-control"/>
+                     <ValidationMessage For="(() => Expediente.Cedula)"/>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                 @*Telefono 2*@
+                <div class="form-group mt-2">
+                    <label>Teléfono 2</label>
+                     <InputText @bind-Value="Expediente.Cedula" class="form-control"/>
+                     <ValidationMessage For="(() => Expediente.Cedula)"/>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Expediente Expediente { get; set; }
+
+    int provincia = -1;
+    int ciudad = -1;
+    int distrito = -1;
+    int sector = -1;
+    List<Provincia> Provincias = new List<Provincia>();
+    List<Ciudad> Ciudades = new List<Ciudad>();
+    List<Sectore> Sectores = new List<Sectore>();
+    List<DistritoMunicipal> Distritos = new List<DistritoMunicipal>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Distritos = new();
+        Provincias = await provinciaBLL.GetAll();
+
+    }
+
+    private async Task GetCiudadesByProvincia()
+    {
+        Ciudades = await ciudadBLL.ListWhere(c => c.Provincia == provincia);
+        StateHasChanged();
+    }
+
+    private async Task GetDistritosByCiudad()
+    {
+        Distritos = await distritoBLL.ListWhere(c => c.Ciudad == ciudad);
+        StateHasChanged();
+    }
+
+    private async Task GetSectoresByDistrito()
+    {
+        Sectores = await sectorBLL.ListWhere(c => c.DistritoMunicipal == distrito);
+        StateHasChanged();
+    }
+
+
+}

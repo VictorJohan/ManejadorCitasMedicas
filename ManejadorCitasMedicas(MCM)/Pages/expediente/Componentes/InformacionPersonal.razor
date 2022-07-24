@@ -1,0 +1,168 @@
+﻿
+<EditForm Model="Expediente">
+    <DataAnnotationsValidator/>
+    @*Este formulario es para recolectar la informacion Personal de una persona*@
+    <div class="row m-0">
+        <div class="col-sm-6">
+            @*Cedula*@
+            <div class="form-group">
+                <label>Cédula</label>
+                 <InputText @bind-Value="Expediente.Cedula" class="form-control"/>
+                 <ValidationMessage For="(() => Expediente.Cedula)"/>
+            </div>
+
+            @*NSS*@
+            <div class="form-group mt-2">
+                <label>NSS</label>
+                 <InputText @bind-Value="Expediente.Cedula" class="form-control"/>
+                 <ValidationMessage For="(() => Expediente.Cedula)"/>
+            </div>
+
+            @*Nombres y Apellidos*@
+            <div class="row mt-2">
+                @*Nombres*@
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Nombres</label>
+                         <InputText @bind-Value="Expediente.Nombre" class="form-control"/>
+                         <ValidationMessage For="(() => Expediente.Cedula)"/>
+                    </div>
+                </div>
+                @*Primer Apellido*@
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Primer Apellido</label>
+                         <InputText @bind-Value="Expediente.Apellido" class="form-control"/>
+                         <ValidationMessage For="(() => Expediente.Cedula)"/>
+                    </div>
+                </div>
+                @*Segundo Apellido*@
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Segundo Apellido</label>
+                         <InputText @bind-Value="Expediente.Apellido" class="form-control"/>
+                         <ValidationMessage For="(() => Expediente.Cedula)"/>
+                    </div>
+                </div>
+                @*Apodo*@
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Apodo</label>
+                         <InputText @bind-Value="Expediente.Apellido" class="form-control"/>
+                         <ValidationMessage For="(() => Expediente.Cedula)"/>
+                    </div>
+                </div>
+
+            </div>
+            @*Sexo*@
+
+            <div class="form-group mt-2">
+             <label>Sexo</label>
+              <InputSelect @bind-Value="Expediente.Apellido" class="form-control">
+                  <option value="-1">Seleccione un Sexo</option>
+                  <option value="0">Hombre</option>
+                  <option value="1">Mujer</option>
+              </InputSelect>
+              <ValidationMessage For="(() => Expediente.Cedula)"/>
+            </div>
+            @*Fecha Nacimiento*@
+         <div class="form-group mt-2">
+             <label>Fecha Nacimiento</label>
+              <InputDate @bind-Value="Expediente.FechaCreacion" class="form-control"/>
+              <ValidationMessage For="(() => Expediente.FechaCreacion)"/>
+         </div>
+
+            @*Nacionalidad*@
+            @*Aqui puedes usar es componente que viste en la doc de bootstrap*@
+         <div class="form-group mt-2">
+             <label>Nacionalidad</label>
+              <InputText @bind-Value="Expediente.Apellido" class="form-control"/>
+              <ValidationMessage For="(() => Expediente.Cedula)"/>
+         </div>
+
+
+            @*Lugar Nacimiento*@
+
+         <div class="form-group mt-2">
+             <label>Lugar Nacimiento</label>
+              <InputText @bind-Value="Expediente.Apellido" class="form-control"/>
+              <ValidationMessage For="(() => Expediente.Cedula)"/>
+         </div>
+
+
+            @*Estado Civil*@
+
+        <div class="form-group mt-2">
+            <label>Estado Civil</label>
+             <InputSelect @bind-Value="Expediente.Apellido" class="form-control">
+                 <option value="-1">Seleccione un Estado Civil</option>
+                 <option value="0">Soltero</option>
+                 <option value="1">Casado</option>
+             </InputSelect>
+             <ValidationMessage For="(() => Expediente.Cedula)"/>
+        </div>
+        </div>
+
+        <div class="col-sm-6">
+            @*Nombre de los padres*@
+            <div class="row">
+               
+                <div class="col-sm-6">
+                    @*Padre*@
+                    <div class="form-group">
+                        <label>Padre</label>
+                         <InputText @bind-Value="Expediente.Apellido" class="form-control"/>
+                    </div>
+                </div>
+                 <div class="col-sm-6">
+                    @*Madre*@
+                    <div class="form-group">
+                        <label>Madre</label>
+                         <InputText @bind-Value="Expediente.Apellido" class="form-control"/>
+                    </div>
+                </div>
+               
+            </div>
+
+            @*ARS*@
+            <div class="form-group mt-2">
+             <label>ARS</label>
+              <InputSelect @bind-Value="Expediente.Apellido" class="form-control">
+                  <option value="-1">Seleccione un Seguro</option>
+                  <option value="0">SENASA</option>
+                  <option value="1">SENASA 1</option>
+              </InputSelect>
+              <ValidationMessage For="(() => Expediente.Cedula)"/>
+            </div>
+           
+             @*Plan Contributario*@
+            <div class="form-group mt-2">
+             <label>ARS</label>
+              <InputSelect @bind-Value="Expediente.Apellido" class="form-control">
+                  <option value="-1">Seleccione un Plan</option>
+                  <option value="0">Plan</option>
+                  <option value="1">Plan 1</option>
+              </InputSelect>
+              <ValidationMessage For="(() => Expediente.Cedula)"/>
+            </div>
+
+             @*Madre*@
+             <div class="form-group">
+                 <label>Nota</label>
+                  <InputTextArea @bind-Value="Expediente.Nota" class="form-control"/>
+             </div>
+
+              @*Creado*@
+             <div class="form-group">
+                 <label>Fecha Apertura</label>
+                  <input type="date" @bind="Expediente.FechaCreacion" readonly class="form-control"/>
+             </div>
+        </div>
+    </div>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public Expediente Expediente { get; set; } = new();
+}
