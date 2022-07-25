@@ -1,0 +1,147 @@
+﻿<style>
+    .selected {
+        background-color: #1E88E5 !important;
+    }
+
+        .selected > td {
+            color: white !important;
+        }
+
+            .selected > td .mud-input {
+                color: white !important;
+            }
+</style>
+
+<MudDialog>
+    <DialogContent >
+        
+            <MudTable Items="@Medicos"  FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true"  Striped="@true" Filter="new Func<Medico,bool>(FilterFunc1)" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" @bind-SelectedItem="selectedItem1" T="Medico">
+            <ToolBarContent>
+                <MudText Typo="Typo.h6">Medicos</MudText>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString1" Placeholder="Search" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Nombre</MudTh>
+                <MudTh>Email</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Nombre">@context.Nombre</MudTd>
+                <MudTd DataLabel="Email">@context.Email</MudTd>
+      
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+        </MudTable>
+       
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+
+     private int selectedRowNumber = -1;
+    private MudTable<Medico> mudTable;
+    private Medico selectedItem1 = null;
+    private string searchString1 = "";
+    private HashSet<Medico> selectedItems = new HashSet<Medico>();
+
+    private IEnumerable<Medico> Medicos = new List<Medico>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        Medicos = new List<Medico>()
+        {
+            new()
+            {
+                Nombre = "Juan",
+                Email = "Juan@gmail.com"
+            }, new()
+            {
+                Nombre = "Victor Johan",
+                Email = "Juan@gmail.com"
+            }, new()
+            {
+                Nombre = "Sofia Vergara",
+                Email = "Juan@gmail.com"
+            }, new()
+            {
+                Nombre = "Pedro",
+                Email = "Pedro@gmail.com"
+            }, new()
+            {
+                Nombre = "Jose Tomate",
+                Email = "Juan@gmail.com"
+            }, new()
+            {
+                Nombre = "Pancho Manuel",
+                Email = "Panch23@gmail.com"
+            }, new()
+            {
+                Nombre = "Luis Tolete",
+                Email = "tolete45@gmail.com"
+            }, new()
+            {
+                Nombre = "Paola Tolete",
+                Email = "tolete45@gmail.com"
+            }, new()
+            {
+                Nombre = "Luis Tolete",
+                Email = "tolete45@gmail.com"
+            }, new()
+            {
+                Nombre = "Luis Tolete",
+                Email = "tolete45@gmail.com"
+            }, new()
+            {
+                Nombre = "Luis Tolete",
+                Email = "tolete45@gmail.com"
+            }, new()
+            {
+                Nombre = "Luis Tolete",
+                Email = "tolete45@gmail.com"
+            },
+        };
+    }
+
+
+    private string SelectedRowClassFunc(Medico element, int rowNumber)
+    {
+        if (selectedRowNumber == rowNumber)
+        {
+            selectedRowNumber = -1;
+           
+            return string.Empty;
+        }
+        else if (mudTable.SelectedItem != null && mudTable.SelectedItem.Equals(element))
+        {
+            selectedRowNumber = rowNumber;
+           
+            return "selected";
+        }
+        else
+        {
+            return string.Empty;
+        }
+    }
+
+    private bool FilterFunc1(Medico element) => FilterFunc(element, searchString1);
+
+    private bool FilterFunc(Medico element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Email.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+
+    void Submit() => MudDialog.Close(DialogResult.Ok(mudTable.SelectedItem));
+    void Cancel() => MudDialog.Cancel();
+}

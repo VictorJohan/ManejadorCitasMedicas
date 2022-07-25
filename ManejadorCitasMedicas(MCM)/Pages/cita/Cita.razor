@@ -1,0 +1,54 @@
+﻿@page "/cita"
+
+@inject IDialogService DialogService
+
+<div class="row mt-2">
+<EditForm Model="CitaModel">
+    <DataAnnotationsValidator/>
+    <div class="col-sm-6">
+            @*Este sera el citerio de busqueda para los pacientes*@
+        <label class="form-label">Cédula</label>
+        <input type="text" class="form-control"/>
+
+        <label class="form-label mt-2">Nombre</label>
+        <input type="text" readonly class="form-control"/>
+
+        <label class="form-label mt-2">Apellido</label>
+        <input type="text" readonly class="form-control"/>
+
+        <label class="form-label mt-2">Fecha Nacimiento</label>
+        <input type="date" readonly class="form-control"/>
+
+        <label class="form-label mt-2">Lugar Nacimiento</label>
+        <input type="date" readonly class="form-control"/>
+    </div>
+    <div class="col-sm-6">
+        <MudButton @onclick="OpenDialog" Variant="Variant.Filled" Color="Color.Primary">
+            Open Simple Dialog
+        </MudButton>
+        <h1>@m.Nombre</h1>
+    </div>
+   </EditForm>
+</div>
+
+@code {
+    public Models.Cita CitaModel;
+    public Medico m = new Medico();
+    protected override async Task OnInitializedAsync()
+    {
+        CitaModel = new Models.Cita();
+    }
+
+    private async Task OpenDialog()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true };
+        var dialog = DialogService.Show<MedicosModal>("",options);
+
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            m = (Medico)result.Data;
+        }
+    }
+}

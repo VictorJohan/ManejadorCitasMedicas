@@ -11,7 +11,7 @@
               <option value="-1">Seleccione una Provincia</option>
             @foreach (var item in Provincias)
             {
-                          <option value="@item.Codigo">@item.Nombre</option>
+                              <option value="@item.Codigo">@item.Nombre</option>
             }
          </select>
 
@@ -21,7 +21,7 @@
             <option value="-1">Seleccione una Ciudad</option>
             @foreach (var item in Ciudades)
             {
-                        <option value="@item.Id">@item.Nombre</option>
+             <option value="@item.Id">@item.Nombre</option>
             }
         </select>
 
@@ -31,7 +31,7 @@
             <option value="-1">Seleccione un Distrito</option>
             @foreach (var item in Distritos)
             {
-                <option value="@item.Id">@item.Nombre</option>
+                    <option value="@item.Id">@item.Nombre</option>
             }
         </select>
 
@@ -41,7 +41,7 @@
             <option value="-1">Seleccione un Sector</option>
             @foreach (var item in Sectores)
             {
-                  <option value="@item.Id">@item.Nombre</option>
+                      <option value="@item.Id">@item.Nombre</option>
             }
         </InputSelect>
 
@@ -86,7 +86,7 @@
                 </div>
             </div>
             <div class="col-sm-6">
-                 @*Telefono 2*@
+                @*Telefono 2*@
                 <div class="form-group mt-2">
                     <label>Teléfono 2</label>
                      <InputText @bind-Value="Expediente.Cedula" class="form-control"/>
@@ -112,7 +112,7 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Distritos = new();
+       
         Provincias = await provinciaBLL.GetAll();
 
     }

@@ -13,13 +13,13 @@
       <InformacionPersonal Expediente="ExpedienteModel"></InformacionPersonal>
   </div>
   <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-      <Direccion></Direccion>
+      <Direccion Expediente="ExpedienteModel"></Direccion>
   </div>
 </div>
 </EditForm>
 
 <button type="submit" class="btn btn-success ml-3 mt-3">Guardar</button>
-@code{
+@code {
     Models.Expediente ExpedienteModel;
 
     protected override async Task OnInitializedAsync()
@@ -27,8 +27,8 @@
         ExpedienteModel = new();
     }
 
-  private void  Guardar()
+    private void Guardar()
     {
-        
+
     }
 }

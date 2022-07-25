@@ -1,10 +1,13 @@
 ﻿@inherits LayoutComponentBase
 <MudThemeProvider/>
+<MudDialogProvider/>
+<MudSnackbarProvider/>
 <div class="page">
 
     <MudLayout>
     <MudAppBar Elevation="1">
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+        <h3>Titulo</h3>
         <MudSpacer />
         <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor" Target="_blank" />
     </MudAppBar>
@@ -12,16 +15,14 @@
         <MudDrawerHeader>
             <MudText Typo="Typo.h6">MCM</MudText>
         </MudDrawerHeader>
-        <MudNavMenu>
+        <MudNavMenu Color="Color.Inherit">
+            <MudNavLink OnClick="@ToggleDrawer" Href="/cita">Cita</MudNavLink>
             <MudNavLink OnClick="@ToggleDrawer" Href="/expediente">Expediente</MudNavLink>
-            <MudNavLink OnClick="@ToggleDrawer" Match="NavLinkMatch.All">Library</MudNavLink>
             <MudNavLink OnClick="@ToggleDrawer" Match="NavLinkMatch.All">Community</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
     <MudMainContent Class="pt-16 pl-5 pr-5">
-       
-                @Body
-      
+        @Body
     </MudMainContent>
 </MudLayout>
 

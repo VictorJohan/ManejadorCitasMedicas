@@ -27,6 +27,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddMudServices();
+builder.Services.AddMudBlazorDialog();
 builder.Services.AddDbContext<SanVicentePaulDBContext>(options =>
                options.UseSqlServer(
                    config.GetConnectionString("DefaultConnection")));

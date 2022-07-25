@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace ManejadorCitasMedicas_MCM_.Models
 {
-    public partial class Cita
+    public class Cita
     {
         public int CitaId { get; set; }
         public string Descripcion { get; set; } = null!;
