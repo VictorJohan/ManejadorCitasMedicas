@@ -2,53 +2,122 @@
 
 @inject IDialogService DialogService
 
-<div class="row mt-2">
 <EditForm Model="CitaModel">
-    <DataAnnotationsValidator/>
-    <div class="col-sm-6">
-            @*Este sera el citerio de busqueda para los pacientes*@
-        <label class="form-label">Cédula</label>
-        <input type="text" class="form-control"/>
+    <div class="row mt-2">
+        <DataAnnotationsValidator />
+        @*Datos del paciente*@
+        <div class="col-sm-6 card">
+            <div class="card-header">
+                <h2>Paciente</h2>
+            </div>
 
-        <label class="form-label mt-2">Nombre</label>
-        <input type="text" readonly class="form-control"/>
+            <div class="card-body">
+                <label class="form-label">Nombre</label>
+                <div class="input-group">
+                    <input @bind="exp.Nombre" readonly type="text" class="form-control" />
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-primary input-group-text ml-2" @onclick="OpenDialogExpediente">
+                            Selecionar
+                        </button>
+                    </div>
+                </div>
 
-        <label class="form-label mt-2">Apellido</label>
-        <input type="text" readonly class="form-control"/>
+                <label class="form-label mt-2">Apellido</label>
+                <input @bind="exp.Apellido" type="text" readonly class="form-control" />
 
-        <label class="form-label mt-2">Fecha Nacimiento</label>
-        <input type="date" readonly class="form-control"/>
+                <label class="form-label mt-2">Expediente</label>
+                <input @bind="exp.NumeroExpendiente" type="text" readonly class="form-control" />
 
-        <label class="form-label mt-2">Lugar Nacimiento</label>
-        <input type="date" readonly class="form-control"/>
+                <label class="form-label mt-2">Cédula</label>
+                <input @bind="exp.Cedula" type="text" readonly class="form-control" />
+
+                <label class="form-label mt-2">Fecha Nacimiento</label>
+                <input @bind="exp.FechaNacimiento" type="date" readonly class="form-control" />
+            </div>
+
+        </div>
+        @*Datos del medico*@
+        <div class="col-sm-6 card pl-1">
+            <div class="card-header">
+                <h2>Medico</h2>
+            </div>
+            <div class="card-body">
+                <label class="form-label">Nombres</label>
+                <div class="input-group">
+                    <input @bind="m.Nombres" type="text" readonly class="form-control" />
+                    <div class="input-group-append">
+                        <button type="button" class="btn btn-primary input-group-text ml-2" @onclick="OpenDialogMedico">
+                            Selecionar
+                        </button>
+                    </div>
+                </div>
+
+                <label class="form-label mt-2">Apellidos</label>
+                <input @bind="m.Apellidos" type="text" readonly class="form-control" />
+
+                <label class="form-label mt-2">Especialidad</label>
+                <input @bind="m.NombreEspecialidad" type="text" readonly class="form-control" />
+
+                <label class="form-label mt-2">Oficio</label>
+                <input @bind="m.Oficio" type="text" readonly class="form-control" />
+
+                <label class="form-label mt-2">Cédula</label>
+                <input @bind="m.Cedula" type="text" readonly class="form-control" />
+            </div>
+
+        </div>
     </div>
-    <div class="col-sm-6">
-        <MudButton @onclick="OpenDialog" Variant="Variant.Filled" Color="Color.Primary">
-            Open Simple Dialog
-        </MudButton>
-        <h1>@m.Nombre</h1>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <label class="form-label mt-2">Fecha Inicio</label>
+            <input @bind="CitaModel.Inicia" type="date" class="form-control"/>
+
+            <label class="form-label mt-2">Descripción</label>
+            <textarea @bind="CitaModel.Descripcion" type="text" class="form-control" />
+
+             <button  class="btn btn-success mt-2 w-100">Guardar</button>
+        </div>
+
+        <div class="col-sm-6">
+           
+        </div>
     </div>
-   </EditForm>
-</div>
+
+</EditForm>
 
 @code {
     public Models.Cita CitaModel;
     public Medico m = new Medico();
+    public Expediente exp = new Expediente();
     protected override async Task OnInitializedAsync()
     {
         CitaModel = new Models.Cita();
     }
 
-    private async Task OpenDialog()
+    private async Task OpenDialogMedico()
     {
-        var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true };
-        var dialog = DialogService.Show<MedicosModal>("",options);
+        var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true, FullScreen = true };
+        var dialog = DialogService.Show<MedicosModal>("", options);
 
         var result = await dialog.Result;
 
         if (!result.Cancelled)
         {
             m = (Medico)result.Data;
+        }
+    }
+
+    private async Task OpenDialogExpediente()
+    {
+        var options = new DialogOptions { CloseOnEscapeKey = true, FullWidth = true, FullScreen = true };
+        var dialog = DialogService.Show<ExpedienteModal>("", options);
+
+        var result = await dialog.Result;
+
+        if (!result.Cancelled)
+        {
+            exp = (Expediente)result.Data;
         }
     }
 }

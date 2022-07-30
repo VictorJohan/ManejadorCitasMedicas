@@ -7,10 +7,12 @@ namespace ManejadorCitasMedicas_MCM_.Models
     {
         public int CitaId { get; set; }
         public string Descripcion { get; set; } = null!;
-        public DateTime Inicia { get; set; }
+        public DateTime Inicia { get; set; } = DateTime.Now;
         public DateTime Termina { get; set; }
         public int PacienteId { get; set; }
+        public string NombrePaciente { get; set; }
         public int MedicoId { get; set; }
+        public string NombreMedico { get; set; }
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
         public int UsuarioCreacion { get; set; }

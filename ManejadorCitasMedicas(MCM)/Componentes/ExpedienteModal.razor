@@ -1,4 +1,4 @@
-﻿@inject MedicoBLL medicoBLL
+﻿@inject ExpedienteBLL expedienteLL
 <style>
     .selected {
         background-color: #1E88E5 !important;
@@ -16,26 +16,25 @@
 <MudDialog>
     <DialogContent >
 
-            <MudTable Items="@Medicos"  FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true"  Striped="@true" Filter="new Func<Medico,bool>(FilterFunc1)" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" @bind-SelectedItem="selectedItem1" T="Medico">
+            <MudTable Items="@Expedientes"  FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true"  Striped="@true" Filter="new Func<Expediente,bool>(FilterFunc1)" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" @bind-SelectedItem="selectedItem1" T="Expediente">
             <ToolBarContent>
-                <MudText Typo="Typo.h6">Medicos</MudText>
+                <MudText Typo="Typo.h6">Pacientes</MudText>
                 <MudSpacer />
                 <MudTextField @bind-Value="searchString1" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
             </ToolBarContent>
             <HeaderContent>
                 <MudTh>Nombres</MudTh>
                 <MudTh>Apellidos</MudTh>
-                <MudTh>Especialidad</MudTh>
-                <MudTh>Cedula</MudTh>
-                <MudTh>Oficio</MudTh>
+                <MudTh>Expediente</MudTh>
+                <MudTh>Cédula</MudTh>
+                <MudTh>Fecha Nacimiento</MudTh>
             </HeaderContent>
             <RowTemplate>
-                <MudTd DataLabel="Nombres">@context.Nombres</MudTd>
-                <MudTd DataLabel="Apellidos">@context.Apellidos</MudTd>
-                <MudTd DataLabel="NombreEspecialidad">@context.NombreEspecialidad</MudTd>
-                <MudTd DataLabel="Cedula">@context.Cedula</MudTd>
-                <MudTd DataLabel="Oficio">@context.Oficio</MudTd>
-
+                <MudTd DataLabel="Nombres">@context.Nombre</MudTd>
+                <MudTd DataLabel="Apellidos">@context.Apellido</MudTd>
+                <MudTd DataLabel="Expediente">@context.NumeroExpendiente</MudTd>
+                <MudTd DataLabel="Cédula">@context.Cedula</MudTd>
+                <MudTd DataLabel="Fecha Nacimiento">@context.FechaNacimiento.ToString("dd/MM/yyyy")</MudTd>
             </RowTemplate>
             <PagerContent>
                 <MudTablePager />
@@ -52,20 +51,20 @@
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
     private int selectedRowNumber = -1;
-    private MudTable<Medico> mudTable;
-    private Medico selectedItem1 = null;
+    private MudTable<Expediente> mudTable;
+    private Expediente selectedItem1 = null;
     private string searchString1 = "";
-    private HashSet<Medico> selectedItems = new HashSet<Medico>();
+    private HashSet<Expediente> selectedItems = new HashSet<Expediente>();
 
-    private IEnumerable<Medico> Medicos = new List<Medico>();
+    private IEnumerable<Expediente> Expedientes = new List<Expediente>();
 
     protected override async Task OnInitializedAsync()
     {
-        Medicos = await medicoBLL.GetAll();
+        Expedientes = await expedienteLL.GetAll();
     }
 
 
-    private string SelectedRowClassFunc(Medico element, int rowNumber)
+    private string SelectedRowClassFunc(Expediente element, int rowNumber)
     {
         if (selectedRowNumber == rowNumber)
         {
@@ -85,21 +84,21 @@
         }
     }
 
-    private bool FilterFunc1(Medico element) => FilterFunc(element, searchString1);
+    private bool FilterFunc1(Expediente element) => FilterFunc(element, searchString1);
 
-    private bool FilterFunc(Medico element, string searchString)
+    private bool FilterFunc(Expediente element, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
-        if (element.Nombres.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (element.Apellidos.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (element.Apellido.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
         if (element.Cedula.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (element.Oficio.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (element.NumeroExpendiente.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (element.NombreEspecialidad.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+         if (element.FechaNacimiento.ToString("dd/MM/yyyy").Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
 
         return false;

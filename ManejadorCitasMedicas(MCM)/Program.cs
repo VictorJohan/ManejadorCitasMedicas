@@ -37,6 +37,9 @@ builder.Services.AddTransient<ProvinciaBLL>();
 builder.Services.AddTransient<CiudadBLL>();
 builder.Services.AddTransient<DistritoBLL>();
 builder.Services.AddTransient<SectorBLL>();
+builder.Services.AddTransient<MedicoBLL>();
+builder.Services.AddTransient<ExpedienteBLL>();
+builder.Services.AddTransient<CitaBLL>();
 
 try
 {

@@ -160,7 +160,7 @@ namespace ManejadorCitasMedicas_MCM_.Models
             {
                 entity.Property(e => e.MedicoId).ValueGeneratedNever();
 
-                entity.Property(e => e.Apellido)
+                entity.Property(e => e.Apellidos)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
@@ -172,7 +172,7 @@ namespace ManejadorCitasMedicas_MCM_.Models
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
-                entity.Property(e => e.Nombre)
+                entity.Property(e => e.Nombres)
                     .HasMaxLength(50)
                     .IsUnicode(false);
 
