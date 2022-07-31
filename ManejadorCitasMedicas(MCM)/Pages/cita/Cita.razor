@@ -1,8 +1,14 @@
 ﻿@page "/cita"
+@page "/cita/{CitaId:int}"
+
+@inject CitaBLL citaBLL
+@inject ExpedienteBLL expdienteBLL
+@inject MedicoBLL medicoBLL
 
 @inject IDialogService DialogService
+@inject ISnackbar toast
 
-<EditForm Model="CitaModel">
+<EditForm Model="CitaModel" OnValidSubmit="Guardar">
     <div class="row mt-2">
         <DataAnnotationsValidator />
         @*Datos del paciente*@
@@ -21,6 +27,7 @@
                         </button>
                     </div>
                 </div>
+                 <ValidationMessage For="@(() => CitaModel.PacienteId)" />
 
                 <label class="form-label mt-2">Apellido</label>
                 <input @bind="exp.Apellido" type="text" readonly class="form-control" />
@@ -39,7 +46,7 @@
         @*Datos del medico*@
         <div class="col-sm-6 card pl-1">
             <div class="card-header">
-                <h2>Medico</h2>
+                <h2>Médico</h2>
             </div>
             <div class="card-body">
                 <label class="form-label">Nombres</label>
@@ -51,7 +58,7 @@
                         </button>
                     </div>
                 </div>
-
+                <ValidationMessage For="@(() => CitaModel.MedicoId)" />
                 <label class="form-label mt-2">Apellidos</label>
                 <input @bind="m.Apellidos" type="text" readonly class="form-control" />
 
@@ -80,19 +87,29 @@
         </div>
 
         <div class="col-sm-6">
-           
+
         </div>
     </div>
 
 </EditForm>
 
 @code {
+    [Parameter]
+    public int CitaId { get; set; }
     public Models.Cita CitaModel;
     public Medico m = new Medico();
     public Expediente exp = new Expediente();
+
     protected override async Task OnInitializedAsync()
     {
         CitaModel = new Models.Cita();
+
+        if(CitaId != 0)
+        {
+            CitaModel = await citaBLL.Get(CitaId);
+            exp = await expdienteBLL.Get(CitaModel.PacienteId);
+            m = await medicoBLL.Get(CitaModel.MedicoId);
+        }
     }
 
     private async Task OpenDialogMedico()
@@ -105,6 +122,8 @@
         if (!result.Cancelled)
         {
             m = (Medico)result.Data;
+
+            CitaModel.MedicoId = m.MedicoId;
         }
     }
 
@@ -118,6 +137,17 @@
         if (!result.Cancelled)
         {
             exp = (Expediente)result.Data;
+
+            CitaModel.PacienteId = exp.PacienteId;
         }
+    }
+
+    private async Task Guardar()
+    {
+        if (await citaBLL.Save(CitaModel))
+            toast.Add("Guardado", Severity.Success);
+        else
+            toast.Add("Error, no se logro guardar la cita.", Severity.Error);
+
     }
 }

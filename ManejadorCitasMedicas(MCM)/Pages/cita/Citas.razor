@@ -1,6 +1,85 @@
 ﻿@page "/citas"
 
+@inject ISnackbar toast
+@inject CitaBLL citaBLL
+@inject NavigationManager nav
+
+<MudTable Items="@ListaCitas" FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true" Striped="@true" Filter="new Func<Models.Cita,bool>(FilterFunc1)" @ref="mudTable" @bind-SelectedItem="selectedItem1" T="Models.Cita">
+    <ToolBarContent>
+        <a class="btn btn-primary" href="/cita">Nueva Cita</a>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Inicia</MudTh>
+        <MudTh>Paciente</MudTh>
+        <MudTh>Médico</MudTh>
+        <MudTh>Descripción</MudTh>
+        <MudTh>Acciones</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Inicia">@context.Inicia</MudTd>
+        <MudTd DataLabel="Paciente">@context.NombrePaciente</MudTd>
+        <MudTd DataLabel="Medico">@context.NombreMedico</MudTd>
+        <MudTd DataLabel="Descripción">@context.Descripcion</MudTd>
+        <MudTd>
+            <MudIcon @onclick="(() => Ver(context.CitaId))" Style="cursor: pointer; margin-right: 10px" Color="Color.Primary" Icon="@Icons.Filled.Edit"></MudIcon>
+            <MudIcon @onclick="(() => Eliminar(context.CitaId))" Style="cursor: pointer" Color="Color.Error" Icon="@Icons.Filled.Delete"/>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
 
 @code {
-    public List<Cita> ListCita { get; set; }
+
+    private int selectedRowNumber = -1;
+    private MudTable<Models.Cita> mudTable;
+    private Models.Cita selectedItem1 = null;
+    private string searchString1 = "";
+    private HashSet<Models.Cita> selectedItems = new HashSet<Models.Cita>();
+
+    private IEnumerable<Models.Cita> ListaCitas = new List<Models.Cita>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListaCitas = await citaBLL.GetAll();
+    }
+
+
+    public void Ver(int id)
+    {
+        nav.NavigateTo($"/cita/{id}");
+    }
+
+    private async Task Eliminar(int id)
+    {
+        if(await citaBLL.Delete(id))
+        {
+            toast.Add("Lito", Severity.Success);
+            ListaCitas = await citaBLL.GetAll();
+        }
+    }
+
+    private bool FilterFunc1(Models.Cita element) => FilterFunc(element, searchString1);
+
+    private bool FilterFunc(Models.Cita element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.NombrePaciente.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.NombrePaciente.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Inicia.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Descripcion.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+      
+
+        return false;
+    }
+
 }

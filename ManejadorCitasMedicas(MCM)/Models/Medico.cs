@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ManejadorCitasMedicas_MCM_.Models
 {
@@ -14,6 +15,7 @@ namespace ManejadorCitasMedicas_MCM_.Models
         public string Telefono { get; set; } = null!;
         public string Cargo { get; set; } = null!;
         public int EspecialidadId { get; set; }
+        [NotMapped]
         public string NombreEspecialidad { get; set; }
         public bool Activo { get; set; }
     }

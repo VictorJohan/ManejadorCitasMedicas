@@ -42,7 +42,6 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             }
             catch (Exception ex)
             {
-
                 Log.Fatal(ex, $"{typeof(CitaBLL).Name}-Get");
                 return new();
             }
@@ -54,7 +53,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             {
                 var list = await (from c in _contexto.Citas
                                   join p in _contexto.Expedientes on c.PacienteId equals p.PacienteId
-                                  join m in _contexto.Medicos on c.MedicoId equals m.MedicoId
+                                  join m in _contexto.Medicos on c.MedicoId equals m.MedicoId where c.Activo == true
                                   select new Cita
                                   {
                                       CitaId = c.CitaId,
@@ -63,6 +62,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                                       Inicia = c.Inicia,
                                       Termina = c.Termina,
                                       Activo = c.Activo,
+                                      Descripcion = c.Descripcion,
                                       NombrePaciente = $"{p.Nombre} {p.Apellido}",
                                       NombreMedico = $"{m.Nombres} {m.Apellidos}"
                                   }).ToListAsync();

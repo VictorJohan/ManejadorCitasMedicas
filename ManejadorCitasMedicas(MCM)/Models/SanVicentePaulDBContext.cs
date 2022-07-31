@@ -37,7 +37,7 @@ namespace ManejadorCitasMedicas_MCM_.Models
         {
             modelBuilder.Entity<Cita>(entity =>
             {
-                entity.Property(e => e.CitaId).ValueGeneratedNever();
+                entity.Property(e => e.CitaId).ValueGeneratedOnAdd();
 
                 entity.Property(e => e.Descripcion)
                     .HasMaxLength(50)

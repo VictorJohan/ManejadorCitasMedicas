@@ -20,9 +20,36 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             throw new NotImplementedException();
         }
 
-        public Task<Medico> Get(int id)
+        public async Task<Medico> Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var medico = await (from m in _contexto.Medicos
+                                          join e in _contexto.Especialidades on m.EspecialidadId equals e.EspecialidadId where m.MedicoId == id
+                                          select new Medico
+                                          {
+                                              MedicoId = m.MedicoId,
+                                              Nombres = m.Nombres,
+                                              Apellidos = m.Apellidos,
+                                              Cedula = m.Cedula,
+                                              Oficio = m.Oficio,
+                                              Email = m.Email,
+                                              Telefono = m.Telefono,
+                                              Cargo = m.Cargo,
+                                              EspecialidadId = m.EspecialidadId,
+                                              NombreEspecialidad = e.Nombre,
+                                              Activo = m.Activo
+                                          }).SingleOrDefaultAsync();
+                if (medico != null)
+                    return medico;
+                else
+                    return new();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(MedicoBLL).Name}-Get");
+                return new();
+            }
         }
 
         public async Task<List<Medico>> GetAll()

@@ -20,9 +20,21 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             throw new NotImplementedException();
         }
 
-        public Task<Expediente> Get(int id)
+        public async Task<Expediente> Get(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var exp = await _contexto.Expedientes.FindAsync(id);
+                if (exp != null)
+                    return exp;
+                else
+                    return new();
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(ExpedienteBLL).Name}-Get");
+                return new();
+            }
         }
 
         public async Task<List<Expediente>> GetAll()
