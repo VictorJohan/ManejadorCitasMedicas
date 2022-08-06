@@ -1,0 +1,141 @@
+﻿@inject ProvinciaBLL provinciaBLL
+@inject CiudadBLL ciudadBLL
+@inject SectorBLL sectorBLL
+@inject DistritoBLL distritoBLL
+
+<div class="row">
+    <div class="col-sm-6">
+        @*Provincias*@
+        <label class="form-label">Provincia</label>
+        <select @bind="Paciente.ProvinciaId" @onfocusout="(GetCiudadesByProvincia)" class="form-control">
+            <option value="-1">Seleccione una Provincia</option>
+            @foreach (var item in Provincias)
+            {
+                <option value="@item.ProvinciaId">@item.Nombre</option>
+            }
+        </select>
+
+        @*Ciudad*@
+        <label class="form-label">Ciudad</label>
+        <select @bind="Paciente.CiudadId" @onfocusout="(GetDistritosByCiudad)" class="form-control">
+            <option value="-1">Seleccione una Ciudad</option>
+            @foreach (var item in Ciudades)
+            {
+                <option value="@item.CiudadId">@item.Nombre</option>
+            }
+        </select>
+
+        @*Distrito*@
+        <label class="form-label">Distrito Municipal</label>
+        <select @bind="Paciente.DistritoId" @onfocusout="(GetSectoresByDistrito)" class="form-control">
+            <option value="-1">Seleccione un Distrito</option>
+            @foreach (var item in Distritos)
+            {
+                <option value="@item.DistritoId">@item.Nombre</option>
+            }
+        </select>
+
+        @*Sector*@
+        <label class="form-label">Sector</label>
+        <InputSelect @bind-Value="Paciente.SectorId" class="form-control">
+            <option value="-1">Seleccione un Sector</option>
+            @foreach (var item in Sectores)
+            {
+                <option value="@item.SectorId">@item.Nombre</option>
+            }
+        </InputSelect>
+
+
+    </div>
+    <div class="col-sm-6">
+        @*Calle*@
+        <div class="form-group mt-2">
+            <label>Calle</label>
+            <InputText @bind-Value="Paciente.Calle" class="form-control" />
+            <ValidationMessage For="(() => Paciente.Calle)" />
+        </div>
+
+        @*Edificio/Casa*@
+        <div class="form-group mt-2">
+            <label>Edificio/Csa</label>
+            <InputText @bind-Value="Paciente.Edificio" class="form-control" />
+            <ValidationMessage For="(() => Paciente.Edificio)" />
+        </div>
+
+        @*Numero*@
+        <div class="form-group mt-2">
+            <label>Número Apartamento</label>
+            <InputText @bind-Value="Paciente.Apartamento" class="form-control" />
+            <ValidationMessage For="(() => Paciente.Apartamento)" />
+        </div>
+
+        @*Referencia*@
+        <div class="form-group mt-2">
+            <label>Referencia</label>
+            <InputText @bind-Value="Paciente.Referencia" class="form-control" />
+            <ValidationMessage For="(() => Paciente.Referencia)" />
+        </div>
+
+        <div class="row">
+            <div class="col-sm-6">
+                @*Telefono 1*@
+                <div class="form-group mt-2">
+                    <label>Teléfono 1</label>
+                    <InputText @bind-Value="Paciente.Telefono1" class="form-control" />
+                    <ValidationMessage For="(() => Paciente.Telefono1)" />
+                </div>
+            </div>
+            <div class="col-sm-6">
+                @*Telefono 2*@
+                <div class="form-group mt-2">
+                    <label>Teléfono 2</label>
+                    <InputText @bind-Value="Paciente.Telefono2" class="form-control" />
+                    <ValidationMessage For="(() => Paciente.Telefono2)" />
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public Pacientes Paciente { get; set; }
+
+    List<Provincias> Provincias = new List<Provincias>();
+    List<Ciudades> Ciudades = new List<Ciudades>();
+    List<Sectores> Sectores = new List<Sectores>();
+    List<DistritosMunicipales> Distritos = new List<DistritosMunicipales>();
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        Provincias = await provinciaBLL.GetAll();
+        Ciudades = await ciudadBLL.GetAll();
+        Distritos = await distritoBLL.GetAll();
+        if(Paciente.PacienteId > 0)
+        {
+            Sectores = await  sectorBLL.ListWhere(c => c.DistritoId == Paciente.DistritoId);
+        }
+
+    }
+
+    private async Task GetCiudadesByProvincia()
+    {
+        Ciudades = await ciudadBLL.ListWhere(c => c.ProvinciaId == Paciente.ProvinciaId);
+        StateHasChanged();
+    }
+
+    private async Task GetDistritosByCiudad()
+    {
+        Distritos = await distritoBLL.ListWhere(c => c.Ciudad == Paciente.CiudadId);
+        StateHasChanged();
+    }
+
+    private async Task GetSectoresByDistrito()
+    {
+        Sectores = await sectorBLL.ListWhere(c => c.DistritoId == Paciente.DistritoId);
+        StateHasChanged();
+    }
+
+
+}

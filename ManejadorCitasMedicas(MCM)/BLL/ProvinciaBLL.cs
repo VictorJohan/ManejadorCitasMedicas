@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace ManejadorCitasMedicas_MCM_.BLL
 {
-    public class ProvinciaBLL : IListable<Provincia>
+    public class ProvinciaBLL : IListable<Provincias>
     {
         private SanVicentePaulDBContext _contexto { get; set; }
         public ProvinciaBLL(SanVicentePaulDBContext contexto)
@@ -14,7 +14,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             _contexto = contexto;
         }
 
-        public async Task<List<Provincia>> GetAll()
+        public async Task<List<Provincias>> GetAll()
         {
 
             try
@@ -26,12 +26,12 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             {
 
                 Log.Fatal(ex, $"{typeof(ProvinciaBLL).Name}-GetAll");
-                return new List<Provincia>();
+                return new List<Provincias>();
             }
 
         }
 
-        public async Task<List<Provincia>> ListWhere(Expression<Func<Provincia, bool>> criterio)
+        public async Task<List<Provincias>> ListWhere(Expression<Func<Provincias, bool>> criterio)
         {
 
             try
@@ -43,7 +43,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             {
 
                 Log.Fatal(ex, $"{typeof(ProvinciaBLL).Name}-ListWhere");
-                return new List<Provincia>();
+                return new List<Provincias>();
             }
         }
     }

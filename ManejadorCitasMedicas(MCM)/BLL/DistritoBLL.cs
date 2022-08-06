@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace ManejadorCitasMedicas_MCM_.BLL
 {
-    public class DistritoBLL : IListable<DistritoMunicipal>
+    public class DistritoBLL : IListable<DistritosMunicipales>
     {
         private SanVicentePaulDBContext _contexto { get; set; }
 
@@ -15,33 +15,33 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             _contexto = contexto;
         }
 
-        public async Task<List<DistritoMunicipal>> GetAll()
+        public async Task<List<DistritosMunicipales>> GetAll()
         {
             try
             {
-                var lista = await _contexto.DistritoMunicipals.ToListAsync();
+                var lista = await _contexto.DistritosMunicipales.ToListAsync();
                 return lista;
             }
             catch (Exception ex)
             {
 
                 Log.Fatal(ex, $"{typeof(DistritoBLL).Name}-GetAll");
-                return new List<DistritoMunicipal>();
+                return new List<DistritosMunicipales>();
             }
         }
 
-        public async Task<List<DistritoMunicipal>> ListWhere(Expression<Func<DistritoMunicipal, bool>> criterio)
+        public async Task<List<DistritosMunicipales>> ListWhere(Expression<Func<DistritosMunicipales, bool>> criterio)
         {
             try
             {
-                var lista = await _contexto.DistritoMunicipals.Where(criterio).ToListAsync();
+                var lista = await _contexto.DistritosMunicipales.Where(criterio).ToListAsync();
                 return lista;
             }
             catch (Exception ex)
             {
 
                 Log.Fatal(ex, $"{typeof(DistritoBLL).Name}-ListWhere");
-                return new List<DistritoMunicipal>();
+                return new List<DistritosMunicipales>();
             }
         }
     }

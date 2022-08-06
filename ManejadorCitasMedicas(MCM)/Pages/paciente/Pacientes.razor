@@ -1,0 +1,86 @@
+﻿@page "/pacientes"
+
+@inject ISnackbar toast
+@inject PacienteBLL pacienteBLL
+@inject NavigationManager nav
+
+
+<MudTable Items="@ListaPaciente" FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true" Striped="@true" Filter="new Func<Models.Pacientes,bool>(FilterFunc1)" @ref="mudTable" @bind-SelectedItem="selectedItem1" T="Models.Pacientes">
+    <ToolBarContent>
+        <a class="btn btn-primary" href="/paciente">Nuevo Paciente</a>
+        <MudSpacer />
+        <MudTextField @bind-Value="searchString1" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+    </ToolBarContent>
+    <HeaderContent>
+        <MudTh>Nombres</MudTh>
+        <MudTh>Primer Apellido</MudTh>
+        <MudTh>Segundo Apellido</MudTh>
+        <MudTh>Cédula</MudTh>
+        <MudTh>Fecha Nacimiento</MudTh>
+    </HeaderContent>
+    <RowTemplate>
+        <MudTd DataLabel="Nombres">@context.Nombre</MudTd>
+        <MudTd DataLabel="Primer Apellido">@context.PrimerApellido</MudTd>
+        <MudTd DataLabel="Segundo Apellido">@context.SegundoApellido</MudTd>
+        <MudTd DataLabel="Cédula">@context.Cedula</MudTd>
+        <MudTd DataLabel="Fecha Nacimiento">@context.FechaNacimiento.ToString("dd/MM/yyyy")</MudTd>
+        <MudTd>
+            <MudIcon @onclick="(() => Ver(context.PacienteId))" Style="cursor: pointer; margin-right: 10px" Color="Color.Primary" Icon="@Icons.Filled.Edit"></MudIcon>
+            <MudIcon @onclick="(() => Eliminar(context.PacienteId))" Style="cursor: pointer" Color="Color.Error" Icon="@Icons.Filled.Delete"/>
+        </MudTd>
+    </RowTemplate>
+    <PagerContent>
+        <MudTablePager />
+    </PagerContent>
+</MudTable>
+
+@code {
+
+    private MudTable<Models.Pacientes> mudTable;
+    private Models.Pacientes selectedItem1 = null;
+    private string searchString1 = "";
+    private HashSet<Models.Pacientes> selectedItems = new HashSet<Models.Pacientes>();
+
+    private IEnumerable<Models.Pacientes> ListaPaciente = new List<Models.Pacientes>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListaPaciente = new List<Models.Pacientes>();
+        ListaPaciente = await pacienteBLL.GetAll();
+    }
+
+
+    public void Ver(int id)
+    {
+        nav.NavigateTo($"/paciente/{id}");
+    }
+
+    private async Task Eliminar(int id)
+    {
+        if(await pacienteBLL.Delete(id))
+        {
+            toast.Add("Lito", Severity.Success);
+            ListaPaciente = await pacienteBLL.GetAll();
+        }
+    }
+
+    private bool FilterFunc1(Models.Pacientes element) => FilterFunc(element, searchString1);
+
+    private bool FilterFunc(Models.Pacientes element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.PrimerApellido.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.SegundoApellido.ToString().Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.FechaNacimiento.ToString("dd/MM/yyyy").Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Cedula.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        return false;
+    }
+
+}

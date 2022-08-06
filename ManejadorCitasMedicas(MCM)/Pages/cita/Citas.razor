@@ -4,7 +4,7 @@
 @inject CitaBLL citaBLL
 @inject NavigationManager nav
 
-<MudTable Items="@ListaCitas" FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true" Striped="@true" Filter="new Func<Models.Cita,bool>(FilterFunc1)" @ref="mudTable" @bind-SelectedItem="selectedItem1" T="Models.Cita">
+<MudTable Items="@ListaCitas" FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true" Striped="@true" Filter="new Func<Models.Citas,bool>(FilterFunc1)" @ref="mudTable" @bind-SelectedItem="selectedItem1" T="Models.Citas">
     <ToolBarContent>
         <a class="btn btn-primary" href="/cita">Nueva Cita</a>
         <MudSpacer />
@@ -20,7 +20,7 @@
     <RowTemplate>
         <MudTd DataLabel="Inicia">@context.Inicia</MudTd>
         <MudTd DataLabel="Paciente">@context.NombrePaciente</MudTd>
-        <MudTd DataLabel="Medico">@context.NombreMedico</MudTd>
+        <MudTd DataLabel="Medicos">@context.NombreMedico</MudTd>
         <MudTd DataLabel="Descripción">@context.Descripcion</MudTd>
         <MudTd>
             <MudIcon @onclick="(() => Ver(context.CitaId))" Style="cursor: pointer; margin-right: 10px" Color="Color.Primary" Icon="@Icons.Filled.Edit"></MudIcon>
@@ -35,13 +35,12 @@
 
 @code {
 
-    private int selectedRowNumber = -1;
-    private MudTable<Models.Cita> mudTable;
-    private Models.Cita selectedItem1 = null;
+    private MudTable<Models.Citas> mudTable;
+    private Models.Citas selectedItem1 = null;
     private string searchString1 = "";
-    private HashSet<Models.Cita> selectedItems = new HashSet<Models.Cita>();
+    private HashSet<Models.Citas> selectedItems = new HashSet<Models.Citas>();
 
-    private IEnumerable<Models.Cita> ListaCitas = new List<Models.Cita>();
+    private IEnumerable<Models.Citas> ListaCitas = new List<Models.Citas>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -63,9 +62,9 @@
         }
     }
 
-    private bool FilterFunc1(Models.Cita element) => FilterFunc(element, searchString1);
+    private bool FilterFunc1(Models.Citas element) => FilterFunc(element, searchString1);
 
-    private bool FilterFunc(Models.Cita element, string searchString)
+    private bool FilterFunc(Models.Citas element, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;

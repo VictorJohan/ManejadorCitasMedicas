@@ -2,7 +2,7 @@
 @page "/cita/{CitaId:int}"
 
 @inject CitaBLL citaBLL
-@inject ExpedienteBLL expdienteBLL
+@inject PacienteBLL expdienteBLL
 @inject MedicoBLL medicoBLL
 
 @inject IDialogService DialogService
@@ -30,7 +30,7 @@
                  <ValidationMessage For="@(() => CitaModel.PacienteId)" />
 
                 <label class="form-label mt-2">Apellido</label>
-                <input @bind="exp.Apellido" type="text" readonly class="form-control" />
+                <input @bind="exp.PrimerApellido" type="text" readonly class="form-control" />
 
                 <label class="form-label mt-2">Expediente</label>
                 <input @bind="exp.NumeroExpendiente" type="text" readonly class="form-control" />
@@ -43,6 +43,7 @@
             </div>
 
         </div>
+
         @*Datos del medico*@
         <div class="col-sm-6 card pl-1">
             <div class="card-header">
@@ -96,13 +97,13 @@
 @code {
     [Parameter]
     public int CitaId { get; set; }
-    public Models.Cita CitaModel;
-    public Medico m = new Medico();
-    public Expediente exp = new Expediente();
+    public Models.Citas CitaModel;
+    public Medicos m = new Medicos();
+    public Pacientes exp = new Pacientes();
 
     protected override async Task OnInitializedAsync()
     {
-        CitaModel = new Models.Cita();
+        CitaModel = new Models.Citas();
 
         if (CitaId != 0)
         {
@@ -121,7 +122,7 @@
 
         if (!result.Cancelled)
         {
-            m = (Medico)result.Data;
+            m = (Medicos)result.Data;
 
             CitaModel.MedicoId = m.MedicoId;
         }
@@ -136,7 +137,7 @@
 
         if (!result.Cancelled)
         {
-            exp = (Expediente)result.Data;
+            exp = (Pacientes)result.Data;
 
             CitaModel.PacienteId = exp.PacienteId;
         }

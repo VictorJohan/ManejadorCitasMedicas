@@ -1,0 +1,168 @@
+﻿
+<EditForm Model="Paciente">
+    <DataAnnotationsValidator />
+    @*Este formulario es para recolectar la informacion Personal de una persona*@
+    <div class="row m-0">
+        <div class="col-sm-6">
+            @*Cedula*@
+            <div class="form-group">
+                <label>Cédula</label>
+                <InputText @bind-Value="Paciente.Cedula" class="form-control" />
+                <ValidationMessage For="(() => Paciente.Cedula)" />
+            </div>
+            
+            @*NSS*@
+            <div class="form-group mt-2">
+                <label>NSS</label>
+                <InputText @bind-Value="Paciente.Nss" class="form-control" />
+                <ValidationMessage For="(() => Paciente.Nss)" />
+            </div>
+
+            @*Nombres y Apellidos*@
+            <div class="row mt-2">
+                @*Nombres*@
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Nombres</label>
+                        <InputText @bind-Value="Paciente.Nombre" class="form-control" />
+                        <ValidationMessage For="(() => Paciente.Nombre)" />
+                    </div>
+                </div>
+                @*Primer Apellido*@
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Primer Apellido</label>
+                        <InputText @bind-Value="Paciente.PrimerApellido" class="form-control" />
+                        <ValidationMessage For="(() => Paciente.PrimerApellido)" />
+                    </div>
+                </div>
+                @*Segundo Apellido*@
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Segundo Apellido</label>
+                        <InputText @bind-Value="Paciente.SegundoApellido" class="form-control" />
+                        <ValidationMessage For="(() => Paciente.SegundoApellido)" />
+                    </div>
+                </div>
+                @*Apodo*@
+                <div class="col-sm-3">
+                    <div class="form-group">
+                        <label>Apodo</label>
+                        <InputText @bind-Value="Paciente.Apodo" class="form-control" />
+                        <ValidationMessage For="(() => Paciente.Apodo)" />
+                    </div>
+                </div>
+
+            </div>
+            @*Sexo*@
+
+            <div class="form-group mt-2">
+                <label>Sexo</label>
+                <InputSelect @bind-Value="Paciente.Sexo" class="form-control">
+                    <option value="-1">Seleccione un Sexo</option>
+                    <option value="0">Hombre</option>
+                    <option value="1">Mujer</option>
+                </InputSelect>
+                <ValidationMessage For="(() => Paciente.Sexo)" />
+            </div>
+            @*Fecha Nacimiento*@
+            <div class="form-group mt-2">
+                <label>Fecha Nacimiento</label>
+                <InputDate @bind-Value="Paciente.FechaNacimiento" class="form-control" />
+                <ValidationMessage For="(() => Paciente.FechaNacimiento)" />
+            </div>
+
+            @*Nacionalidad*@
+            @*Aqui puedes usar es componente que viste en la doc de bootstrap*@
+            <div class="form-group mt-2">
+                <label>Nacionalidad</label>
+                <InputText @bind-Value="Paciente.Nacionalidad" class="form-control" />
+                <ValidationMessage For="(() => Paciente.Nacionalidad)" />
+            </div>
+
+
+            @*Lugar Nacimiento*@
+
+           @* <div class="form-group mt-2">
+                <label>Lugar Nacimiento</label>
+                <InputText @bind-Value="Paciente.Apellido" class="form-control" />
+                <ValidationMessage For="(() => Paciente.Luga)" />
+            </div>*@
+
+
+            @*Estado Civil*@
+
+            <div class="form-group mt-2">
+                <label>Estado Civil</label>
+                <InputSelect @bind-Value="Paciente.EstadoCivil" class="form-control">
+                    <option value="-1">Seleccione un Estado Civil</option>
+                    <option value="0">Soltero</option>
+                    <option value="1">Casado</option>
+                </InputSelect>
+                <ValidationMessage For="(() => Paciente.EstadoCivil)" />
+            </div>
+        </div>
+
+        <div class="col-sm-6">
+            @*Nombre de los padres*@
+            <div class="row">
+
+                <div class="col-sm-6">
+                    @*Padre*@
+                    <div class="form-group">
+                        <label>Padre</label>
+                        <InputText @bind-Value="Paciente.NombrePadre" class="form-control" />
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    @*Madre*@
+                    <div class="form-group">
+                        <label>Madre</label>
+                        <InputText @bind-Value="Paciente.NombreMadre" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+
+            @*ARS*@
+            <div class="form-group mt-2">
+                <label>ARS</label>
+                <InputSelect @bind-Value="Paciente.Ars" class="form-control">
+                    <option value="-1">Seleccione un Seguro</option>
+                    <option value="0">SENASA</option>
+                    <option value="1">SENASA 1</option>
+                </InputSelect>
+                <ValidationMessage For="(() => Paciente.Ars)" />
+            </div>
+
+            @*Plan Contributario*@
+            <div class="form-group mt-2">
+                <label>ARS</label>
+                <InputSelect @bind-Value="Paciente.Plan" class="form-control">
+                    <option value="-1">Seleccione un Plan</option>
+                    <option value="0">Plan</option>
+                    <option value="1">Plan 1</option>
+                </InputSelect>
+                <ValidationMessage For="(() => Paciente.Plan)" />
+            </div>
+
+            @*Madre*@
+            <div class="form-group">
+                <label>Nota</label>
+                <InputTextArea @bind-Value="Paciente.Nota" class="form-control" />
+            </div>
+
+            @*Creado*@
+            <div class="form-group">
+                <label>Fecha Apertura</label>
+                <input type="date" @bind="Paciente.FechaCreacion" readonly class="form-control" />
+            </div>
+        </div>
+    </div>
+
+</EditForm>
+
+@code {
+    [Parameter]
+    public Pacientes Paciente { get; set; } = new();
+}

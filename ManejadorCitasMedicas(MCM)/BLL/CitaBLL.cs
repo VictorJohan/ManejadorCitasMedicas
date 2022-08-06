@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace ManejadorCitasMedicas_MCM_.BLL
 {
-    public class CitaBLL : ICRUD<Cita>, IListable<Cita>
+    public class CitaBLL : ICRUD<Citas>, IListable<Citas>
     {
         private readonly SanVicentePaulDBContext _contexto;
 
@@ -30,7 +30,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             }
         }
 
-        public async Task<Cita> Get(int id)
+        public async Task<Citas> Get(int id)
         {
             try
             {
@@ -47,14 +47,15 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             }
         }
 
-        public async Task<List<Cita>> GetAll()
+        public async Task<List<Citas>> GetAll()
         {
             try
             {
                 var list = await (from c in _contexto.Citas
-                                  join p in _contexto.Expedientes on c.PacienteId equals p.PacienteId
-                                  join m in _contexto.Medicos on c.MedicoId equals m.MedicoId where c.Activo == true
-                                  select new Cita
+                                  join p in _contexto.Pacientes on c.PacienteId equals p.PacienteId
+                                  join m in _contexto.Medicos on c.MedicoId equals m.MedicoId
+                                  where c.Activo == true
+                                  select new Citas
                                   {
                                       CitaId = c.CitaId,
                                       PacienteId = c.PacienteId,
@@ -63,7 +64,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                                       Termina = c.Termina,
                                       Activo = c.Activo,
                                       Descripcion = c.Descripcion,
-                                      NombrePaciente = $"{p.Nombre} {p.Apellido}",
+                                      NombrePaciente = $"{p.Nombre} {p.PrimerApellido}",
                                       NombreMedico = $"{m.Nombres} {m.Apellidos}"
                                   }).ToListAsync();
                 return list;
@@ -71,16 +72,16 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             catch (Exception ex)
             {
                 Log.Fatal(ex, $"{typeof(CitaBLL).Name}-GetAll");
-                return new List<Cita>();
+                return new List<Citas>();
             }
         }
 
-        public Task<List<Cita>> ListWhere(Expression<Func<Cita, bool>> criterio)
+        public Task<List<Citas>> ListWhere(Expression<Func<Citas, bool>> criterio)
         {
             throw new NotImplementedException();
         }
 
-        public async Task<bool> Save(Cita cita)
+        public async Task<bool> Save(Citas cita)
         {
             if (cita.CitaId == 0)
                 return await Insert(cita);
@@ -88,7 +89,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                 return await Update(cita);
         }
 
-        public async Task<bool> Insert(Cita entity)
+        public async Task<bool> Insert(Citas entity)
         {
             try
             {
@@ -102,7 +103,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             }
         }
 
-        public async Task<bool> Update(Cita entity)
+        public async Task<bool> Update(Citas entity)
         {
             try
             {

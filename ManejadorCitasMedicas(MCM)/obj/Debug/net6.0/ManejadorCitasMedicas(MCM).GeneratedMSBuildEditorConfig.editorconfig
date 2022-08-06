@@ -39,28 +39,28 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcQ291bnRlci5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/expediente/Componentes/Direccion.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZWRpZW50ZVxDb21wb25lbnRlc1xEaXJlY2Npb24ucmF6b3I=
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/expediente/Componentes/InformacionPersonal.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZWRpZW50ZVxDb21wb25lbnRlc1xJbmZvcm1hY2lvblBlcnNvbmFsLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/expediente/Expediente.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZWRpZW50ZVxFeHBlZGllbnRlLnJhem9y
-build_metadata.AdditionalFiles.CssScope = 
-
-[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/expediente/Expedientes.razor]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXNcZXhwZWRpZW50ZVxFeHBlZGllbnRlcy5yYXpvcg==
-build_metadata.AdditionalFiles.CssScope = 
-
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/Index.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/paciente/Componentes/Direccion.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGFjaWVudGVcQ29tcG9uZW50ZXNcRGlyZWNjaW9uLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/paciente/Componentes/InformacionPersonal.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGFjaWVudGVcQ29tcG9uZW50ZXNcSW5mb3JtYWNpb25QZXJzb25hbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/paciente/Paciente.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGFjaWVudGVcUGFjaWVudGUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/paciente/Pacientes.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGFjaWVudGVcUGFjaWVudGVzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Shared/SurveyPrompt.razor]

@@ -16,7 +16,7 @@
 <MudDialog>
     <DialogContent >
 
-            <MudTable Items="@Medicos"  FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true"  Striped="@true" Filter="new Func<Medico,bool>(FilterFunc1)" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" @bind-SelectedItem="selectedItem1" T="Medico">
+            <MudTable Items="@Medicos"  FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true"  Striped="@true" Filter="new Func<Medicos,bool>(FilterFunc1)" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" @bind-SelectedItem="selectedItem1" T="Medicos">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Medicos</MudText>
                 <MudSpacer />
@@ -52,12 +52,12 @@
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
     private int selectedRowNumber = -1;
-    private MudTable<Medico> mudTable;
-    private Medico selectedItem1 = null;
+    private MudTable<Medicos> mudTable;
+    private Medicos selectedItem1 = null;
     private string searchString1 = "";
-    private HashSet<Medico> selectedItems = new HashSet<Medico>();
+    private HashSet<Medicos> selectedItems = new HashSet<Medicos>();
 
-    private IEnumerable<Medico> Medicos = new List<Medico>();
+    private IEnumerable<Medicos> Medicos = new List<Medicos>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -65,7 +65,7 @@
     }
 
 
-    private string SelectedRowClassFunc(Medico element, int rowNumber)
+    private string SelectedRowClassFunc(Medicos element, int rowNumber)
     {
         if (selectedRowNumber == rowNumber)
         {
@@ -85,9 +85,9 @@
         }
     }
 
-    private bool FilterFunc1(Medico element) => FilterFunc(element, searchString1);
+    private bool FilterFunc1(Medicos element) => FilterFunc(element, searchString1);
 
-    private bool FilterFunc(Medico element, string searchString)
+    private bool FilterFunc(Medicos element, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;

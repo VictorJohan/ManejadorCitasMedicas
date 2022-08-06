@@ -6,7 +6,7 @@ using System.Linq.Expressions;
 
 namespace ManejadorCitasMedicas_MCM_.BLL
 {
-    public class MedicoBLL : ICRUD<Medico>, IListable<Medico>
+    public class MedicoBLL : ICRUD<Medicos>, IListable<Medicos>
     {
         private readonly SanVicentePaulDBContext _contexto;
 
@@ -15,31 +15,49 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             _contexto = contexto;
         }
 
-        public Task<bool> Delete(int id)
+        public async Task<bool> Delete(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var m = await Get(id);
+                if (m.MedicoId > 0)
+                {
+                    m.Activo = false;
+                    return await Update(m);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(MedicoBLL).Name}-Delete");
+                return false;
+            }
         }
 
-        public async Task<Medico> Get(int id)
+        public async Task<Medicos> Get(int id)
         {
             try
             {
                 var medico = await (from m in _contexto.Medicos
-                                          join e in _contexto.Especialidades on m.EspecialidadId equals e.EspecialidadId where m.MedicoId == id
-                                          select new Medico
-                                          {
-                                              MedicoId = m.MedicoId,
-                                              Nombres = m.Nombres,
-                                              Apellidos = m.Apellidos,
-                                              Cedula = m.Cedula,
-                                              Oficio = m.Oficio,
-                                              Email = m.Email,
-                                              Telefono = m.Telefono,
-                                              Cargo = m.Cargo,
-                                              EspecialidadId = m.EspecialidadId,
-                                              NombreEspecialidad = e.Nombre,
-                                              Activo = m.Activo
-                                          }).SingleOrDefaultAsync();
+                                    join e in _contexto.Especialidades on m.EspecialidadId equals e.EspecialidadId
+                                    where m.MedicoId == id
+                                    select new Medicos
+                                    {
+                                        MedicoId = m.MedicoId,
+                                        Nombres = m.Nombres,
+                                        Apellidos = m.Apellidos,
+                                        Cedula = m.Cedula,
+                                        Oficio = m.Oficio,
+                                        Email = m.Email,
+                                        Telefono = m.Telefono,
+                                        Cargo = m.Cargo,
+                                        EspecialidadId = m.EspecialidadId,
+                                        NombreEspecialidad = e.Nombre,
+                                        Activo = m.Activo
+                                    }).SingleOrDefaultAsync();
                 if (medico != null)
                     return medico;
                 else
@@ -52,13 +70,13 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             }
         }
 
-        public async Task<List<Medico>> GetAll()
+        public async Task<List<Medicos>> GetAll()
         {
             try
             {
                 var lista = await (from m in _contexto.Medicos
                                    join e in _contexto.Especialidades on m.EspecialidadId equals e.EspecialidadId
-                                   select new Medico
+                                   select new Medicos
                                    {
                                        MedicoId = m.MedicoId,
                                        Nombres = m.Nombres,
@@ -78,23 +96,58 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             {
 
                 Log.Fatal(ex, $"{typeof(MedicoBLL).Name}-GetAll");
-                return new List<Medico>();
+                return new List<Medicos>();
             }
         }
 
-        public Task<List<Medico>> ListWhere(Expression<Func<Medico, bool>> criterio)
+        public async Task<List<Medicos>> ListWhere(Expression<Func<Medicos, bool>> criterio)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var lista = await _contexto.Medicos.Where(criterio).ToListAsync();
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(MedicoBLL).Name}-ListWhere");
+                return new List<Medicos>();
+            }
         }
 
-        public Task<bool> Insert(Medico entity)
+        public async Task<bool> Save(Medicos m)
         {
-            throw new NotImplementedException();
+            if (m.MedicoId == 0)
+                return await Insert(m);
+            else
+                return await Update(m);
         }
 
-        public Task<bool> Update(Medico entity)
+        public async Task<bool> Insert(Medicos entity)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _contexto.Medicos.Add(entity);
+                return await _contexto.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(MedicoBLL).Name}-Insert");
+                return false;
+            }
+        }
+
+        public async Task<bool> Update(Medicos entity)
+        {
+            try
+            {
+                _contexto.Entry(entity).State = EntityState.Modified;
+                return await _contexto.SaveChangesAsync() > 0;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(MedicoBLL).Name}-Update");
+                return false;
+            }
         }
     }
 }

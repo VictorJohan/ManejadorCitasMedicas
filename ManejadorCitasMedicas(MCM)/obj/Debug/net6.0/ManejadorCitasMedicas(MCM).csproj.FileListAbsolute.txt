@@ -1,3 +1,11 @@
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).csproj.AssemblyReference.cache
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).AssemblyInfoInputs.cache
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).AssemblyInfo.cs
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).csproj.CoreCompileInputs.cache
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).MvcApplicationPartsAssemblyInfo.cache
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).RazorAssemblyInfo.cache
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).RazorAssemblyInfo.cs
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\appsettings.json
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\Logs\log.json
@@ -64,14 +72,6 @@ C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\Ma
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\runtimes\win\lib\netcoreapp3.0\System.Windows.Extensions.dll
-C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).csproj.AssemblyReference.cache
-C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).AssemblyInfoInputs.cache
-C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).AssemblyInfo.cs
-C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).csproj.CoreCompileInputs.cache
-C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).RazorAssemblyInfo.cache
-C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).RazorAssemblyInfo.cs
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\staticwebassets.build.json
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\staticwebassets.development.json
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\scopedcss\Shared\MainLayout.razor.rz.scp.css

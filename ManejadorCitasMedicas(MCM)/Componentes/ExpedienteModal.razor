@@ -1,4 +1,4 @@
-﻿@inject ExpedienteBLL expedienteLL
+﻿@inject PacienteBLL expedienteLL
 <style>
     .selected {
         background-color: #1E88E5 !important;
@@ -16,7 +16,7 @@
 <MudDialog>
     <DialogContent >
 
-            <MudTable Items="@Expedientes"  FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true"  Striped="@true" Filter="new Func<Expediente,bool>(FilterFunc1)" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" @bind-SelectedItem="selectedItem1" T="Expediente">
+            <MudTable Items="@Expedientes"  FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true"  Striped="@true" Filter="new Func<Pacientes,bool>(FilterFunc1)" @ref="mudTable" RowClassFunc="@SelectedRowClassFunc" @bind-SelectedItem="selectedItem1" T="Pacientes">
             <ToolBarContent>
                 <MudText Typo="Typo.h6">Pacientes</MudText>
                 <MudSpacer />
@@ -25,14 +25,14 @@
             <HeaderContent>
                 <MudTh>Nombres</MudTh>
                 <MudTh>Apellidos</MudTh>
-                <MudTh>Expediente</MudTh>
+                <MudTh>Expedientes</MudTh>
                 <MudTh>Cédula</MudTh>
                 <MudTh>Fecha Nacimiento</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Nombres">@context.Nombre</MudTd>
-                <MudTd DataLabel="Apellidos">@context.Apellido</MudTd>
-                <MudTd DataLabel="Expediente">@context.NumeroExpendiente</MudTd>
+                <MudTd DataLabel="Apellidos">@context.PrimerApellido</MudTd>
+                <MudTd DataLabel="Expedientes">@context.NumeroExpendiente</MudTd>
                 <MudTd DataLabel="Cédula">@context.Cedula</MudTd>
                 <MudTd DataLabel="Fecha Nacimiento">@context.FechaNacimiento.ToString("dd/MM/yyyy")</MudTd>
             </RowTemplate>
@@ -51,12 +51,12 @@
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
 
     private int selectedRowNumber = -1;
-    private MudTable<Expediente> mudTable;
-    private Expediente selectedItem1 = null;
+    private MudTable<Pacientes> mudTable;
+    private Pacientes selectedItem1 = null;
     private string searchString1 = "";
-    private HashSet<Expediente> selectedItems = new HashSet<Expediente>();
+    private HashSet<Pacientes> selectedItems = new HashSet<Pacientes>();
 
-    private IEnumerable<Expediente> Expedientes = new List<Expediente>();
+    private IEnumerable<Pacientes> Expedientes = new List<Pacientes>();
 
     protected override async Task OnInitializedAsync()
     {
@@ -64,7 +64,7 @@
     }
 
 
-    private string SelectedRowClassFunc(Expediente element, int rowNumber)
+    private string SelectedRowClassFunc(Pacientes element, int rowNumber)
     {
         if (selectedRowNumber == rowNumber)
         {
@@ -84,15 +84,15 @@
         }
     }
 
-    private bool FilterFunc1(Expediente element) => FilterFunc(element, searchString1);
+    private bool FilterFunc1(Pacientes element) => FilterFunc(element, searchString1);
 
-    private bool FilterFunc(Expediente element, string searchString)
+    private bool FilterFunc(Pacientes element, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
             return true;
         if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
-        if (element.Apellido.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        if (element.PrimerApellido.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
         if (element.Cedula.Contains(searchString, StringComparison.OrdinalIgnoreCase))
             return true;
