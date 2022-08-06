@@ -17,9 +17,14 @@
         </MudDrawerHeader>
         <MudDivider></MudDivider>
         <MudNavMenu>
-            <MudNavLink OnClick="@ToggleDrawer" Href="/citas">Citas</MudNavLink>
-            <MudNavLink Href="/pacientes">Pacientes</MudNavLink>
-            <MudNavLink Match="NavLinkMatch.All">Community</MudNavLink>
+            <MudNavLink Icon="@Icons.Filled.CalendarMonth" OnClick="@ToggleDrawer" Href="/citas">
+                Citas
+            </MudNavLink>
+            <MudNavLink Icon="@Icons.Filled.Person" OnClick="@ToggleDrawer" Href="/pacientes">
+                
+                Pacientes
+                </MudNavLink>
+            <MudNavLink OnClick="@ToggleDrawer" Match="NavLinkMatch.All">Community</MudNavLink>
         </MudNavMenu>
     </MudDrawer>
     <MudMainContent Class="pt-16 pl-5 pr-5 pb-2">

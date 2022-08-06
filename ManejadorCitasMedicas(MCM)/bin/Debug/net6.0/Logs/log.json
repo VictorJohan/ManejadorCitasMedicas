@@ -112,3 +112,6 @@ System.InvalidOperationException: Object of type 'ManejadorCitasMedicas_MCM_.Pag
    at Microsoft.AspNetCore.Routing.EndpointMiddleware.<Invoke>g__AwaitRequestTask|6_0(Endpoint endpoint, Task requestTask, ILogger logger)
    at Microsoft.AspNetCore.Diagnostics.DeveloperExceptionPageMiddleware.Invoke(HttpContext context)
 08/06/2022 01:20:17 -04:00 Iniciando Aplicacion.
+08/06/2022 01:21:43 -04:00 Iniciando Aplicacion.
+08/06/2022 01:25:15 -04:00 Iniciando Aplicacion.
+08/06/2022 01:29:25 -04:00 Iniciando Aplicacion.
