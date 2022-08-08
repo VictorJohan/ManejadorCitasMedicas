@@ -1,0 +1,65 @@
+﻿@layout LoginLayout
+@inject NavigationManager nav
+@inject AuthenticationStateProvider Auth
+@inject UsuarioBLL usuarioBLL
+@page "/"
+
+
+
+<div class="row m-0 justify-content-center">
+
+    <div style="width:500px; margin-top: 10%" class="card">
+       <div class="card-header text-center">
+        <h2>Iniciar Session</h2>
+       </div>
+       <div class="card-body">
+           <label>Usuario</label>
+           <input @bind="usuario" type="text" class="form-control"/>
+           <label class="mt-2">Contraseña</label>
+           <input @bind="contrasena" type="password" class="form-control"/>
+           <div class="row mt-2">
+               <div class="col-sm-6">
+                   <div class="form-check">
+                        <input type="checkbox" class="form-check-input" id="checkbox">
+                        <label class="form-check-label" for="checkbox">
+                            Recordar contraseña
+                        </label>
+                    </div>
+               </div>
+               <div class="col-sm-6">
+                   <a class="float-end" href="">Registrase</a>
+               </div>
+           </div>
+            <button type="button" class="btn btn-success mt-3 w-100" @onclick="(() => Iniciar())">Iniciar</button>
+       </div>
+    </div>
+
+
+</div>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    string usuario = "";
+    string contrasena = "";
+
+
+    private async void Iniciar()
+    {
+        var usuarioAcceso = await usuarioBLL.GetUsuario(usuario, contrasena);
+
+        if (usuarioAcceso != null)
+        {
+            ((CustomAuth)Auth).Iniciar(usuarioAcceso);
+            var authState = await authenticationStateTask;
+            var user = authState.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+
+                nav.NavigateTo("/Inicio");
+            }
+        }
+       
+    }
+}

@@ -1,4 +1,14 @@
-﻿@page "/"
+﻿@page "/Inicio"
+
+<AuthorizeView>  
+    <Authorized>   
+        <h4>Hello, @context.User.Identity.Name!</h4>  
+        <p>This content is only visible if user is authenticated.</p>  
+    </Authorized>  
+    <NotAuthorized>  
+        <p>Please signed in.</p>  
+    </NotAuthorized>  
+</AuthorizeView>
 
 @code {
    

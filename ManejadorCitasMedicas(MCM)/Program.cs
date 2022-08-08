@@ -1,7 +1,9 @@
+using ManejadorCitasMedicas_MCM_.Authorization;
 using ManejadorCitasMedicas_MCM_.BLL;
 using ManejadorCitasMedicas_MCM_.Data;
 using ManejadorCitasMedicas_MCM_.Models;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.EntityFrameworkCore;
 using MudBlazor.Services;
@@ -25,7 +27,7 @@ builder.Host.UseSerilog();
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
+builder.Services.AddScoped<AuthenticationStateProvider, CustomAuth>();
 builder.Services.AddMudServices();
 builder.Services.AddMudBlazorDialog();
 builder.Services.AddDbContext<SanVicentePaulDBContext>(options =>
@@ -40,6 +42,7 @@ builder.Services.AddTransient<SectorBLL>();
 builder.Services.AddTransient<MedicoBLL>();
 builder.Services.AddTransient<PacienteBLL>();
 builder.Services.AddTransient<CitaBLL>();
+builder.Services.AddTransient<UsuarioBLL>();
 
 try
 {

@@ -1,5 +1,7 @@
 ﻿@inherits LayoutComponentBase
-<MudThemeProvider/>
+@inject AuthenticationStateProvider Auth
+@inject NavigationManager nav 
+@*<MudThemeProvider/>
 <MudDialogProvider/>
 <MudSnackbarProvider/>
 <div class="page">
@@ -9,7 +11,12 @@
         <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
         <h3>Titulo</h3>
         <MudSpacer />
-        <MudIconButton Icon="@Icons.Custom.Brands.GitHub" Color="Color.Inherit" Link="https://github.com/MudBlazor/MudBlazor" Target="_blank" />
+       <MudMenu Icon="@Icons.Material.Filled.Person" Color="Color.Inherit">
+          <div class="mr-5">
+               <MudMenuItem>Perfil</MudMenuItem>
+               <MudMenuItem OnClick="@Salir">Salir</MudMenuItem>
+          </div>
+       </MudMenu>
     </MudAppBar>
     <MudDrawer @bind-Open="@open" Color="Color.Dark" Elevation="1">
         <MudDrawerHeader>
@@ -21,7 +28,7 @@
                 Citas
             </MudNavLink>
             <MudNavLink Icon="@Icons.Filled.Person" OnClick="@ToggleDrawer" Href="/pacientes">
-                
+
                 Pacientes
                 </MudNavLink>
             <MudNavLink OnClick="@ToggleDrawer" Match="NavLinkMatch.All">Community</MudNavLink>
@@ -32,7 +39,54 @@
     </MudMainContent>
 </MudLayout>
 
-</div>
+</div>*@
+
+<AuthorizeView>
+    <Authorized>
+        <MudThemeProvider/>
+        <MudDialogProvider/>
+        <MudSnackbarProvider/>
+        <div class="page">
+
+            <MudLayout>
+            <MudAppBar Elevation="1" Color="Color.Dark">
+                <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
+                <h3>Titulo</h3>
+                <MudSpacer />
+               <MudMenu Icon="@Icons.Material.Filled.Person" Color="Color.Inherit">
+                  <div class="mr-5">
+                       <MudMenuItem>Perfil</MudMenuItem>
+                       <MudMenuItem OnClick="@Salir">Salir</MudMenuItem>
+                  </div>
+               </MudMenu>
+            </MudAppBar>
+            <MudDrawer @bind-Open="@open" Color="Color.Dark" Elevation="1">
+                <MudDrawerHeader>
+                    <MudText Typo="Typo.h6">MCM</MudText>
+                </MudDrawerHeader>
+                <MudDivider></MudDivider>
+                <MudNavMenu>
+                    <MudNavLink Icon="@Icons.Filled.CalendarMonth" OnClick="@ToggleDrawer" Href="/citas">
+                        Citas
+                    </MudNavLink>
+                    <MudNavLink Icon="@Icons.Filled.Person" OnClick="@ToggleDrawer" Href="/pacientes">
+
+                        Pacientes
+                        </MudNavLink>
+                    <MudNavLink OnClick="@ToggleDrawer" Match="NavLinkMatch.All">Community</MudNavLink>
+                </MudNavMenu>
+            </MudDrawer>
+            <MudMainContent Class="pt-16 pl-5 pr-5 pb-2">
+                    @Body
+            </MudMainContent>
+        </MudLayout>
+
+        </div>
+    </Authorized>
+    <NotAuthorized>
+       
+    </NotAuthorized>
+</AuthorizeView>
 
 @code {
     bool open = false;
@@ -41,4 +95,11 @@
     {
         open = !open;
     }
+
+    void Salir()
+    {
+        ((CustomAuth)Auth).Salir();
+    }
+
+    
 }
