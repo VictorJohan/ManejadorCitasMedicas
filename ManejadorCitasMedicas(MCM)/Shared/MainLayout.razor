@@ -84,7 +84,7 @@
         </div>
     </Authorized>
     <NotAuthorized>
-       
+       <UnAuthorize></UnAuthorize>
     </NotAuthorized>
 </AuthorizeView>
 
@@ -99,6 +99,7 @@
     void Salir()
     {
         ((CustomAuth)Auth).Salir();
+        nav.NavigateTo("/");
     }
 
     
