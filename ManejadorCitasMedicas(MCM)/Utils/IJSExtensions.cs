@@ -8,5 +8,7 @@ namespace ManejadorCitasMedicas_MCM_.Utils
         {
             js.InvokeVoidAsync("animar403");
         }
+
+       
     }
 }

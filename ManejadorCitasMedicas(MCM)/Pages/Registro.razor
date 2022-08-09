@@ -1,0 +1,81 @@
+﻿@page "/registro"
+@layout LoginLayout
+@inject ISnackbar tost
+@inject UsuarioBLL usuarioBLL
+@inject NavigationManager nav
+
+
+    <EditForm Model="Usuario" OnValidSubmit="Rigistrar">
+<div class="row m-0 justify-content-center">
+
+        <DataAnnotationsValidator/>
+        <div style="width:800px !important; margin-top: 10%" class="card shadow-lg">
+       <div class="card-header text-center">
+        <h2>Registro</h2>
+       </div>
+       <div class="card-body">
+           <div class="row">
+               <div class="col-sm-6">
+                   <label class="form-label">Nombres</label>
+                   <input @bind="Usuario.Nombre" type="text" class="form-control" />
+                   <ValidationMessage For="(() => Usuario.Nombre)"/>
+               </div>
+               <div class="col-sm-6">
+                   <label class="form-label">Apellidos</label>
+                   <input @bind="Usuario.Apellido" type="text" class="form-control"/>
+                    <ValidationMessage For="(() => Usuario.Apellido)"/>
+               </div>
+           </div>
+
+           <label class="form-label">Usuario</label>
+           <input @bind="Usuario.NombreUsuario" type="text" class="form-control"/>
+            <ValidationMessage For="(() => Usuario.NombreUsuario)"/>
+
+           <div class="row">
+               <div class="col-sm-6">
+                   <label class="form-label">Contraseña</label>
+                   <input @bind="Usuario.Contrasena" type="password" class="form-control" />
+                    <ValidationMessage For="(() => Usuario.Contrasena)"/>
+               </div>
+               <div class="col-sm-6">
+                   <label class="form-label">Confirmar Contraseña</label>
+                   <input @bind="Usuario.ConfirmarContrasena" type="password" class="form-control"/>
+                    <ValidationMessage For="(() => Usuario.ConfirmarContrasena)"/>
+               </div>
+           </div>
+
+            <button type="submit" class="btn btn-success mt-3 w-100">Registrarse</button>
+       </div>
+    </div>
+
+
+</div>
+    </EditForm>
+@code {
+    Usuarios Usuario;
+    
+    protected override void OnInitialized()
+    {
+        Usuario = new();
+    }
+
+    private async Task Rigistrar()
+    {
+        if(await usuarioBLL.NombreUsuarioDisponible(Usuario.NombreUsuario))
+        {
+            tost.Add("El nombre de usuario ya esta siendo usado", Severity.Error);
+            return;
+        }
+
+        if (await usuarioBLL.Registrar(Usuario))
+        {
+            tost.Add("Usuario registrado correctamente", Severity.Success);
+            nav.NavigateTo("/");
+        }
+        else
+        {
+            tost.Add("Error al registrar usuario",  Severity.Error);
+        }
+
+    }
+}

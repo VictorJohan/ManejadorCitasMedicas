@@ -33,3 +33,11 @@ function animar403() {
         root.style.setProperty("--mouse-y", y);
     });
 }
+
+function setLocalStorage(key, value) {
+    localStorage.setItem(key, value);
+}
+
+function getFromLocalStorage(key) {
+   return localStorage.getItem(key);
+}

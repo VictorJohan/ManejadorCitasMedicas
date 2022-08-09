@@ -37,6 +37,13 @@
                 <MudTd DataLabel="Fecha Nacimiento">@context.FechaNacimiento.ToString("dd/MM/yyyy")</MudTd>
             </RowTemplate>
             <PagerContent>
+                @if (!hayResultados)
+                {
+                                    <div class="text-center">
+                                    <a href="/paciente">Agregar Paciente</a>
+
+                                    </div>
+                }
                 <MudTablePager />
             </PagerContent>
         </MudTable>
@@ -49,7 +56,7 @@
 </MudDialog>
 @code {
     [CascadingParameter] MudDialogInstance MudDialog { get; set; }
-
+    bool hayResultados = true;
     private int selectedRowNumber = -1;
     private MudTable<Pacientes> mudTable;
     private Pacientes selectedItem1 = null;
@@ -89,18 +96,37 @@
     private bool FilterFunc(Pacientes element, string searchString)
     {
         if (string.IsNullOrWhiteSpace(searchString))
+        {
+            hayResultados = true;
             return true;
+        }
         if (element.Nombre.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        {
+            hayResultados = true;
             return true;
+        }
         if (element.PrimerApellido.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        {
+            hayResultados = true;
             return true;
+        }
         if (element.Cedula.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        {
+            hayResultados = true;
             return true;
+        }
         if (element.NumeroExpendiente.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        {
+            hayResultados = true;
             return true;
-         if (element.FechaNacimiento.ToString("dd/MM/yyyy").Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        }
+        if (element.FechaNacimiento.ToString("dd/MM/yyyy").Contains(searchString, StringComparison.OrdinalIgnoreCase))
+        {
+            hayResultados = true;
             return true;
+        }
 
+        hayResultados = false;
         return false;
     }
 
