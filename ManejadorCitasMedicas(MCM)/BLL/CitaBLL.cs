@@ -76,9 +76,35 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             }
         }
 
-        public Task<List<Citas>> ListWhere(Expression<Func<Citas, bool>> criterio)
+        public async Task<List<Citas>> ListWhere(Expression<Func<Citas, bool>> criterio)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var listaAux = await _contexto.Citas.Where(criterio).ToListAsync();
+                var lista = (from c in listaAux
+                             join u in _contexto.Usuarios on c.UsuarioCreacion equals u.UsuarioId
+                             join p in _contexto.Pacientes on c.PacienteId equals p.PacienteId
+                             select new Citas
+                             {
+                                 CitaId = c.CitaId,
+                                 PacienteId = c.PacienteId,
+                                 MedicoId = c.MedicoId,
+                                 Inicia = c.Inicia,
+                                 Termina = c.Termina,
+                                 Activo = c.Activo,
+                                 Descripcion = c.Descripcion,
+                                 NombrePaciente = $"{p.Nombre} {p.PrimerApellido}",
+                                 NombreUsuarioCreacion = $"{u.Nombre} {u.Apellido}"
+                             }).ToList();
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+
+                Log.Fatal(ex, $"{typeof(CitaBLL).Name}-ListWhere");
+                return new List<Citas>();
+            }
         }
 
         public async Task<bool> Save(Citas cita)
@@ -116,5 +142,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                 return false;
             }
         }
+
+
     }
 }

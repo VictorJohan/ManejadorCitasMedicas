@@ -19,6 +19,8 @@ namespace ManejadorCitasMedicas_MCM_.Models
         public string NombrePaciente { get; set; } = "";
         [NotMapped]
         public string NombreMedico { get; set; } = "";
+        [NotMapped]
+        public string NombreUsuarioCreacion { get; set; } = "";
         public int UsuarioModificacion { get; set; }
         public bool Activo { get; set; } = true;
     }

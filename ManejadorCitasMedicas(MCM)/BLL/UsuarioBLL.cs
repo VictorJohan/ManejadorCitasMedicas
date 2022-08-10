@@ -4,22 +4,28 @@ using Serilog;
 
 namespace ManejadorCitasMedicas_MCM_.BLL
 {
-    public class UsuarioBLL 
+    public class UsuarioBLL
     {
         private SanVicentePaulDBContext _contexto { get; set; }
+        public Usuarios Usuario { get; set; } = new();
 
         public UsuarioBLL(SanVicentePaulDBContext contexto)
         {
             _contexto = contexto;
         }
 
-        public async Task<Usuarios> GetUsuario(string usuario, string contraseña)
+        public async Task<Usuarios> LoginUsuario(string usuario, string contraseña)
         {
             try
             {
                 var user = await _contexto.Usuarios
                     .Where(u => u.NombreUsuario == usuario && u.Contrasena == contraseña && u.Activo == true)
                     .SingleOrDefaultAsync();
+
+                if(user != null)
+                {
+                    Usuario = user;
+                }
 
                 return user;
             }
@@ -69,10 +75,10 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                 var usuario = _contexto.Usuarios.Find(id);
                 usuario!.Activo = true;
                 _contexto.Entry(usuario).State = EntityState.Modified;
-                return await _contexto.SaveChangesAsync() > 0; 
+                return await _contexto.SaveChangesAsync() > 0;
             }
             catch (Exception ex)
-            { 
+            {
                 Log.Fatal(ex, $"{typeof(UsuarioBLL).Name}-ActivarUsuario");
                 return true;
             }

@@ -1,0 +1,68 @@
+﻿@layout LoginLayout
+@inject NavigationManager nav
+@inject AuthenticationStateProvider Auth
+@inject MedicoBLL medicoBLL
+@inject IJSRuntime JS
+@inject ISnackbar toast
+@page "/loginMedico"
+
+
+
+<div class="row m-0 justify-content-center">
+
+    <div style="width:500px; margin-top: 10%" class="card">
+       <div class="card-header text-center">
+        <h2>Iniciar Session</h2>
+       </div>
+       <div class="card-body">
+           <label>Email</label>
+           <input @bind="usuario" type="text" class="form-control"/>
+           <label class="mt-2">Contraseña</label>
+           <input @bind="contrasena" type="password" class="form-control"/>
+          
+            <button type="button" class="btn btn-success mt-3 w-100" @onclick="(() => Iniciar())">Iniciar</button>
+       </div>
+    </div>
+
+
+</div>
+
+@code {
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationStateTask { get; set; }
+    string usuario = "";
+    string contrasena = "";
+    bool recordar = true;
+
+    protected override async Task OnInitializedAsync()
+    {
+        
+    }
+
+    private async void Iniciar()
+    {
+        var usuarioAcceso = await medicoBLL.LoginMedico(usuario, contrasena);
+
+        if (usuarioAcceso != null)
+        {
+            ((CustomAuth)Auth).IniciarMedico(usuarioAcceso);
+            var authState = await authenticationStateTask;
+            var user = authState.User;
+
+            if (user.Identity.IsAuthenticated)
+            {
+                if (recordar)
+                {
+                   //Almacenar en local storage
+                }
+
+                nav.NavigateTo("/Inicio");
+            }
+        }
+        else
+        {
+            toast.Add("Usuario o contraseña incorrecta", Severity.Error);
+        }
+
+    }
+}

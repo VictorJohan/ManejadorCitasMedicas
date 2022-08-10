@@ -10,6 +10,8 @@ namespace ManejadorCitasMedicas_MCM_.BLL
     {
         private readonly SanVicentePaulDBContext _contexto;
 
+        public Medicos Medico { get; set; } = new();
+
         public MedicoBLL(SanVicentePaulDBContext contexto)
         {
             _contexto = contexto;
@@ -147,6 +149,29 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             {
                 Log.Fatal(ex, $"{typeof(MedicoBLL).Name}-Update");
                 return false;
+            }
+        }
+
+        public async Task<Medicos> LoginMedico(string email, string contrasena)
+        {
+            try
+            {
+                var medico = await _contexto.Medicos
+                    .Where(m => m.Email == email && m.Contrasena == contrasena)
+                    .SingleOrDefaultAsync();
+
+                if (medico != null)
+                {
+                    Medico = medico;
+                }
+
+                return medico;
+            }
+            catch (Exception ex)
+            {
+
+                Log.Fatal(ex, $"{typeof(MedicoBLL).Name}-LoginMedico");
+                return null;
             }
         }
     }

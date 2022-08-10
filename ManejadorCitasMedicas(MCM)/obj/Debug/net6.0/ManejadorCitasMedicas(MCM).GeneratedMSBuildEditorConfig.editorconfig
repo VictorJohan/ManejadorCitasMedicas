@@ -19,12 +19,20 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Componentes/CitasDoctor.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50ZXNcQ2l0YXNEb2N0b3IucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Componentes/ExpedienteModal.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50ZXNcRXhwZWRpZW50ZU1vZGFsLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Componentes/MedicosModal.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50ZXNcTWVkaWNvc01vZGFsLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Componentes/TarjetaCita.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50ZXNcVGFyamV0YUNpdGEucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/cita/Cita.razor]
@@ -49,6 +57,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/Login.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/LoginMedico.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5NZWRpY28ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/paciente/Componentes/Direccion.razor]

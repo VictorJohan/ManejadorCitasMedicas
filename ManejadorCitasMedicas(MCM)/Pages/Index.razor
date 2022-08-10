@@ -1,9 +1,12 @@
 ﻿@page "/Inicio"
-
+@inject UsuarioBLL usuarioBLL
 <AuthorizeView>  
     <Authorized>   
         <h4>Hello, @context.User.Identity.Name!</h4>  
-        <p>This content is only visible if user is authenticated.</p>  
+        <p>This content is only visible if user is authenticated.</p> 
+
+        <h1>@usuarioBLL.Usuario.Nombre esta loggeado</h1>
+        
     </Authorized>  
     <NotAuthorized>  
         <p>Please signed in.</p>  

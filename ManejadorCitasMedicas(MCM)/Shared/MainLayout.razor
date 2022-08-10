@@ -42,7 +42,7 @@
 </div>*@
 
 <AuthorizeView>
-    <Authorized>
+    <Authorized >
         <MudThemeProvider/>
         <MudDialogProvider/>
         <MudSnackbarProvider/>
@@ -60,20 +60,23 @@
                   </div>
                </MudMenu>
             </MudAppBar>
-            <MudDrawer @bind-Open="@open" Color="Color.Dark" Elevation="1">
+            <MudDrawer @bind-Open="@open" Color="Color.Inherit" Elevation="1">
                 <MudDrawerHeader>
                     <MudText Typo="Typo.h6">MCM</MudText>
                 </MudDrawerHeader>
                 <MudDivider></MudDivider>
                 <MudNavMenu>
-                    <MudNavLink Icon="@Icons.Filled.CalendarMonth" OnClick="@ToggleDrawer" Href="/citas">
-                        Citas
-                    </MudNavLink>
-                    <MudNavLink Icon="@Icons.Filled.Person" OnClick="@ToggleDrawer" Href="/pacientes">
-
-                        Pacientes
+                    <AuthorizeView Context="usuario" Roles="Usuario">
+                        <MudNavLink Icon="@Icons.Filled.CalendarMonth" OnClick="@(() => NavigateTo("/citas"))">
+                            Citas
                         </MudNavLink>
-                    <MudNavLink OnClick="@ToggleDrawer" Match="NavLinkMatch.All">Community</MudNavLink>
+                        <MudNavLink Icon="@Icons.Filled.Person" OnClick="@(() => NavigateTo("/pacientes"))">
+                            Pacientes
+                        </MudNavLink>
+                    </AuthorizeView>
+                    <AuthorizeView Context="medico" Roles="Medico">
+                        <MudNavLink Icon="@Icons.Filled.List" OnClick="@(() => NavigateTo("/misCitas"))">Mis Citas</MudNavLink>
+                    </AuthorizeView>
                 </MudNavMenu>
             </MudDrawer>
             <MudMainContent Class="pt-16 pl-5 pr-5 pb-2">
@@ -102,5 +105,9 @@
         nav.NavigateTo("/");
     }
 
-    
+    void NavigateTo(string url)
+    {
+        open = !open;
+        nav.NavigateTo(url);
+    }
 }

@@ -39,10 +39,10 @@ builder.Services.AddTransient<ProvinciaBLL>();
 builder.Services.AddTransient<CiudadBLL>();
 builder.Services.AddTransient<DistritoBLL>();
 builder.Services.AddTransient<SectorBLL>();
-builder.Services.AddTransient<MedicoBLL>();
+builder.Services.AddScoped<MedicoBLL>();
 builder.Services.AddTransient<PacienteBLL>();
 builder.Services.AddTransient<CitaBLL>();
-builder.Services.AddTransient<UsuarioBLL>();
+builder.Services.AddScoped<UsuarioBLL>();
 
 try
 {

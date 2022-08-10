@@ -4,6 +4,7 @@
 @inject CitaBLL citaBLL
 @inject PacienteBLL expdienteBLL
 @inject MedicoBLL medicoBLL
+@inject UsuarioBLL usuarioBLL
 
 @inject IDialogService DialogService
 @inject ISnackbar toast
@@ -145,6 +146,7 @@
 
     private async Task Guardar()
     {
+        FirmarRegistro();
         if (await citaBLL.Save(CitaModel))
         {
             toast.Add("Guardado", Severity.Success);
@@ -155,6 +157,19 @@
             toast.Add("Error, no se logro guardar la cita.", Severity.Error);
         }
 
+    }
+
+    private void FirmarRegistro()
+    {
+        if(CitaModel.CitaId == 0)
+        {
+            CitaModel.UsuarioCreacion = usuarioBLL.Usuario.UsuarioId;
+            CitaModel.UsuarioModificacion = usuarioBLL.Usuario.UsuarioId;
+        }
+        else
+        {
+            CitaModel.UsuarioModificacion = usuarioBLL.Usuario.UsuarioId;
+        }
     }
 
     private void Limpiar()

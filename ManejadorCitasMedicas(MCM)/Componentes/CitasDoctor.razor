@@ -1,0 +1,43 @@
+﻿@page "/misCitas"
+@inject CitaBLL citaBLL
+@inject MedicoBLL medicoBLL
+@inject ISnackbar toast
+<div class="row mt-2">
+    @foreach (var c in ListaCitas)
+    {
+            <div class="col-sm-3 pl-0 pr-0">
+               <div class="mb-2">
+                    <TarjetaCita Cita="c"></TarjetaCita>
+               </div>
+
+            </div>
+    }
+</div>
+
+@code {
+    List<Citas> ListaCitas = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        ListaCitas = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId);
+    }
+
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            using var periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(10));
+            while (await periodicTimer.WaitForNextTickAsync())
+            {
+                var auxList = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId);
+                if(auxList.Count() > ListaCitas.Count())
+                {
+                    toast.Add("Tiene una nueva cita", Severity.Info);
+                    ListaCitas = auxList;
+                }
+
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+}
