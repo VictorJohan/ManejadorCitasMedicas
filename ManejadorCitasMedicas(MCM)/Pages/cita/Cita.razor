@@ -5,6 +5,7 @@
 @inject PacienteBLL expdienteBLL
 @inject MedicoBLL medicoBLL
 @inject UsuarioBLL usuarioBLL
+@inject Tools tool
 
 @inject IDialogService DialogService
 @inject ISnackbar toast
@@ -80,12 +81,22 @@
     <div class="row">
         <div class="col-sm-6">
             <label class="form-label mt-2">Fecha Inicio</label>
-            <input @bind="CitaModel.Inicia" type="date" class="form-control"/>
+            <input @bind="CitaModel.Inicia" type="datetime-local" class="form-control"/>
 
             <label class="form-label mt-2">Descripción</label>
             <textarea @bind="CitaModel.Descripcion" type="text" class="form-control" />
 
+            <div class="row">
+                <div class="col-sm-6">
+
              <button  class="btn btn-success mt-2 w-100">Guardar</button>
+                </div>
+                <div class="col-sm-6">
+             <button type="button" @onclick="Limpiar" class="btn btn-primary mt-2 w-100">Nuevo</button>
+
+                </div>
+            </div>
+
         </div>
 
         <div class="col-sm-6">
@@ -104,6 +115,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        tool.AppBarTitulo = "Cita";
         CitaModel = new Models.Citas();
 
         if (CitaId != 0)
@@ -146,6 +158,11 @@
 
     private async Task Guardar()
     {
+        if (!await Validar())
+        {
+            return;
+        }
+
         FirmarRegistro();
         if (await citaBLL.Save(CitaModel))
         {
@@ -159,9 +176,21 @@
 
     }
 
+    private async Task<bool> RevisarDisponibilidad()
+    {
+        string aviso = await citaBLL.SePuedeCrearCita(CitaModel);
+        if (aviso != "")
+        {
+            toast.Add(aviso, Severity.Error);
+            return false;
+        }
+
+        return true;
+    }
+
     private void FirmarRegistro()
     {
-        if(CitaModel.CitaId == 0)
+        if (CitaModel.CitaId == 0)
         {
             CitaModel.UsuarioCreacion = usuarioBLL.Usuario.UsuarioId;
             CitaModel.UsuarioModificacion = usuarioBLL.Usuario.UsuarioId;
@@ -170,6 +199,19 @@
         {
             CitaModel.UsuarioModificacion = usuarioBLL.Usuario.UsuarioId;
         }
+    }
+
+    private async Task<bool> Validar()
+    {
+
+        if (CitaModel.Inicia < DateTime.Now)
+        {
+            toast.Add("La fecha seleccionada ya pasó.", Severity.Error);
+            return false;
+        }
+
+        return await RevisarDisponibilidad();
+
     }
 
     private void Limpiar()

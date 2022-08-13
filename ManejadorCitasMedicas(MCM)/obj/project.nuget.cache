@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "SxD5ksSnWux6Yx7vIWxZWEe5J/alVDTzuwO+lT4BxX/w8dSfdAK9IjyDir6KAEc64ntU8Z4wbc5dfQ84+QqFeg==",
+  "dgSpecHash": "w+X7q6MhMimuadvRlhm6TuPQZi0+Yk4ig8fUip/ZSX3Qn0wY1DYe+2VBgl5LKv6gFyC9gBe39S5/geblSDnRvg==",
   "success": true,
   "projectFilePath": "C:\\Users\\Victor Johan\\Desktop\\Monografico\\Proyecto\\ManejadorCitasMedicas(MCM)\\ManejadorCitasMedicas(MCM)\\ManejadorCitasMedicas(MCM).csproj",
   "expectedPackageFiles": [
@@ -48,6 +48,7 @@
     "C:\\Users\\Victor Johan\\.nuget\\packages\\microsoft.win32.registry\\4.7.0\\microsoft.win32.registry.4.7.0.nupkg.sha512",
     "C:\\Users\\Victor Johan\\.nuget\\packages\\microsoft.win32.systemevents\\4.7.0\\microsoft.win32.systemevents.4.7.0.nupkg.sha512",
     "C:\\Users\\Victor Johan\\.nuget\\packages\\mudblazor\\6.0.12\\mudblazor.6.0.12.nupkg.sha512",
+    "C:\\Users\\Victor Johan\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512",
     "C:\\Users\\Victor Johan\\.nuget\\packages\\serilog\\2.10.0\\serilog.2.10.0.nupkg.sha512",
     "C:\\Users\\Victor Johan\\.nuget\\packages\\serilog.aspnetcore\\6.0.1\\serilog.aspnetcore.6.0.1.nupkg.sha512",
     "C:\\Users\\Victor Johan\\.nuget\\packages\\serilog.enrichers.environment\\2.2.0\\serilog.enrichers.environment.2.2.0.nupkg.sha512",

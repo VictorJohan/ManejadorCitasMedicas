@@ -1,5 +1,5 @@
 ﻿@page "/citas"
-
+@inject Tools tool
 @inject ISnackbar toast
 @inject CitaBLL citaBLL
 @inject NavigationManager nav
@@ -44,6 +44,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        tool.AppBarTitulo = "Listado de Citas";
         ListaCitas = await citaBLL.GetAll();
     }
 

@@ -1,5 +1,5 @@
 ﻿@page "/pacientes"
-
+@inject Tools tool
 @inject ISnackbar toast
 @inject PacienteBLL pacienteBLL
 @inject NavigationManager nav
@@ -48,6 +48,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        tool.AppBarTitulo = "Listado de Pacientes";
         ListaPaciente = new List<Models.Pacientes>();
         ListaPaciente = await pacienteBLL.GetAll();
     }

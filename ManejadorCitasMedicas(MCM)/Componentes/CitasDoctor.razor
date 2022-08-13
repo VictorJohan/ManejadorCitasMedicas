@@ -2,15 +2,24 @@
 @inject CitaBLL citaBLL
 @inject MedicoBLL medicoBLL
 @inject ISnackbar toast
+@inject Tools tool
+
 <div class="row mt-2">
-    @foreach (var c in ListaCitas)
+    @if (ListaCitas.Count() > 0)
     {
-            <div class="col-sm-3 pl-0 pr-0">
-               <div class="mb-2">
-                    <TarjetaCita Cita="c"></TarjetaCita>
-               </div>
+        foreach (var c in ListaCitas)
+        {
+             <div class="col-sm-3 pl-0 pr-0">
+                <div class="mb-2">
+                     <TarjetaCita Cita="c"></TarjetaCita>
+                </div>
 
             </div>
+        }
+    }
+    else
+    {
+        <h1 class="text-center">No hay citas agendadas</h1>
     }
 </div>
 
@@ -19,6 +28,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        //tool.AppBarTitulo = "Mis Citas";
         ListaCitas = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId);
     }
 
@@ -30,7 +40,7 @@
             while (await periodicTimer.WaitForNextTickAsync())
             {
                 var auxList = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId);
-                if(auxList.Count() > ListaCitas.Count())
+                if (auxList.Count() > ListaCitas.Count())
                 {
                     toast.Add("Tiene una nueva cita", Severity.Info);
                     ListaCitas = auxList;

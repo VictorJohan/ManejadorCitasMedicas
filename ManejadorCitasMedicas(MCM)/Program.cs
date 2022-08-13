@@ -2,6 +2,7 @@ using ManejadorCitasMedicas_MCM_.Authorization;
 using ManejadorCitasMedicas_MCM_.BLL;
 using ManejadorCitasMedicas_MCM_.Data;
 using ManejadorCitasMedicas_MCM_.Models;
+using ManejadorCitasMedicas_MCM_.Utils;
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components.Web;
@@ -43,6 +44,7 @@ builder.Services.AddScoped<MedicoBLL>();
 builder.Services.AddTransient<PacienteBLL>();
 builder.Services.AddTransient<CitaBLL>();
 builder.Services.AddScoped<UsuarioBLL>();
+builder.Services.AddScoped<Tools>();
 
 try
 {

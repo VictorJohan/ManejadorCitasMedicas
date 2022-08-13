@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ManejadorCitasMedicas_MCM_.Models
@@ -10,7 +11,9 @@ namespace ManejadorCitasMedicas_MCM_.Models
         public string Descripcion { get; set; } = null!;
         public DateTime Inicia { get; set; } = DateTime.Now;
         public DateTime Termina { get; set; } = DateTime.Now;
+        [Range(minimum: 1, maximum: Int64.MaxValue, ErrorMessage = "Debe seleccionar un paciente.")]
         public int PacienteId { get; set; }
+        [Range(minimum:1, maximum: Int64.MaxValue, ErrorMessage ="Debe seleccionar un médico.")]
         public int MedicoId { get; set; }
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
         public DateTime FechaModificacion { get; set; } = DateTime.Now;

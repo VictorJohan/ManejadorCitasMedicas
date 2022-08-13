@@ -6,7 +6,7 @@ namespace ManejadorCitasMedicas_MCM_.Models
     public partial class Pacientes
     {
         public int PacienteId { get; set; }
-        public string NumeroExpendiente { get; set; } = "";
+        public string NumeroExpendiente { get; set; } = "0000-000000";
         public string Nombre { get; set; } = "";
         public string Apodo { get; set; } = "";
         public string PrimerApellido { get; set; } = "";
@@ -39,5 +39,8 @@ namespace ManejadorCitasMedicas_MCM_.Models
         public string Telefono2 { get; set; } = "";
         public string Piso { get; set; } = "";
         public string Apartamento { get; set; } = "";
+
+
+
     }
 }

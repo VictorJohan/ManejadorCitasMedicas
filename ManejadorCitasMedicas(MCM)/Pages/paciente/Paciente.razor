@@ -3,6 +3,7 @@
 
 @inject ISnackbar toast;
 @inject PacienteBLL pacienteBLL
+@inject Tools tool
 
 <nav class="m-2">
     <div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -30,6 +31,7 @@
 
     protected override async Task OnInitializedAsync()
     {
+        tool.AppBarTitulo = "Paciente";
         PacienteModel = new();
         if(Id > 0)
         {

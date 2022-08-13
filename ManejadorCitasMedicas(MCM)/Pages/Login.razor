@@ -1,17 +1,36 @@
 ﻿@layout LoginLayout
 @inject NavigationManager nav
 @inject AuthenticationStateProvider Auth
+@inject ProtectedSessionStorage localStorage
 @inject UsuarioBLL usuarioBLL
 @inject IJSRuntime JS
 @inject ISnackbar toast
 @page "/"
 
 
+<style>
+    html {
+        height: 100%;
+    }
+    body{
+
+        height: 100% !important;
+    background: rgb(255,255,255);
+background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(81,162,238,1) 33%, rgba(122,139,244,1) 58%, rgba(52,51,255,1) 81%, rgba(130,70,252,1) 99%);
+        background-repeat: no-repeat;
+    }
+</style>
+
 
 <div class="row m-0 justify-content-center">
 
-    <div style="width:500px; margin-top: 10%" class="card">
-       <div class="card-header text-center">
+
+    <div style="width:500px; margin-top: 10%" class="card shadow-lg">
+        @if (cargando)
+        {
+                <MudProgressLinear Color="Color.Success" Indeterminate="true"  />
+        }
+        <div class="card-header text-center">
         <h2>Iniciar Session</h2>
        </div>
        <div class="card-body">
@@ -20,17 +39,9 @@
            <label class="mt-2">Contraseña</label>
            <input @bind="contrasena" type="password" class="form-control"/>
            <div class="row mt-2">
-               <div class="col-sm-6">
-                   <div class="form-check">
-                        <input @bind="recordar" type="checkbox" class="form-check-input" id="checkbox">
-                        <label class="form-check-label" for="checkbox">
-                            Recordar contraseña
-                        </label>
-                    </div>
-               </div>
-               <div class="col-sm-6">
+
                    <a class="float-end" href="/registro">Registrase</a>
-               </div>
+
            </div>
             <button type="button" class="btn btn-success mt-3 w-100" @onclick="(() => Iniciar())">Iniciar</button>
             <div class="text-center">
@@ -48,14 +59,22 @@
     string usuario = "";
     string contrasena = "";
     bool recordar = true;
+    bool cargando = false;
+
 
     protected override async Task OnInitializedAsync()
     {
-
+        Email e = new Email();
+        EmailSender sender = new EmailSender();
+        e.Destinos.Add(new System.Net.Mail.MailAddress("johandev23@gmail.com"));
+        e.Asunto = "Este es un asundo de prueba";
+        e.Mensaje = "Este es un mensaje de prueba";
+        sender.SendMail(e);
     }
 
     private async void Iniciar()
     {
+        cargando = true;
         var usuarioAcceso = await usuarioBLL.LoginUsuario(usuario, contrasena);
 
         if (usuarioAcceso != null)
@@ -66,13 +85,15 @@
 
             if (user.Identity.IsAuthenticated)
             {
-                
+                cargando = false;
+                await localStorage.SetAsync("usuario", usuarioBLL.Usuario);
                 nav.NavigateTo("/Inicio");
             }
         }
         else
         {
             toast.Add("Usuario o contraseña incorrecta", Severity.Error);
+            cargando = false;
         }
 
     }

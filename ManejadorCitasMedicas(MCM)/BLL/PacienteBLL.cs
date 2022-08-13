@@ -95,6 +95,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
         {
             try
             {
+                entity.NumeroExpendiente = await GetNoExpediente();
                 _contexto.Pacientes.Add(entity);
                 return await _contexto.SaveChangesAsync() > 0;
             }
@@ -116,6 +117,25 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             {
                 Log.Fatal(ex, $"{typeof(Pacientes).Name}-Update");
                 return false;
+            }
+        }
+
+        public async Task<string> GetNoExpediente()
+        {
+            try
+            {
+                if (_contexto.Pacientes.Count() == 0)
+                    return "0000-000000";
+
+                var noExpediente = await _contexto.Pacientes.MaxAsync(x => x.NumeroExpendiente);
+                Int64 numero = Int64.Parse(noExpediente.Replace("-", ""));
+
+                return (numero + 1).ToString("0000-000000");
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(Pacientes).Name}-GetNoExpediente");
+                return "";
             }
         }
     }

@@ -4,13 +4,30 @@
 @inject MedicoBLL medicoBLL
 @inject IJSRuntime JS
 @inject ISnackbar toast
+@inject ProtectedSessionStorage localStorage
 @page "/loginMedico"
 
+<style>
+    html {
+        height: 100%;
+    }
+    body{
+        
+        height: 100% !important;
+     background: rgb(70,82,235);
+background: linear-gradient(141deg, rgba(70,82,235,1) 0%, rgba(17,191,174,1) 48%, rgba(50,76,156,1) 100%);
+        background-repeat: no-repeat;
+    }
+</style>
 
 
 <div class="row m-0 justify-content-center">
 
-    <div style="width:500px; margin-top: 10%" class="card">
+    <div style="width:500px; margin-top: 10%" class="card shadow-lg">
+        @if (cargando)
+        {
+                <MudProgressLinear Color="Color.Success" Indeterminate="true"  />
+        }
        <div class="card-header text-center">
         <h2>Iniciar Session</h2>
        </div>
@@ -19,7 +36,7 @@
            <input @bind="usuario" type="text" class="form-control"/>
            <label class="mt-2">Contraseña</label>
            <input @bind="contrasena" type="password" class="form-control"/>
-          
+
             <button type="button" class="btn btn-success mt-3 w-100" @onclick="(() => Iniciar())">Iniciar</button>
        </div>
     </div>
@@ -33,14 +50,16 @@
     string usuario = "";
     string contrasena = "";
     bool recordar = true;
+    bool cargando = false;
 
     protected override async Task OnInitializedAsync()
     {
-        
+
     }
 
     private async void Iniciar()
     {
+        cargando = true;
         var usuarioAcceso = await medicoBLL.LoginMedico(usuario, contrasena);
 
         if (usuarioAcceso != null)
@@ -51,17 +70,15 @@
 
             if (user.Identity.IsAuthenticated)
             {
-                if (recordar)
-                {
-                   //Almacenar en local storage
-                }
-
+                cargando = false;
+                await localStorage.SetAsync("medico", medicoBLL.Medico);
                 nav.NavigateTo("/Inicio");
             }
         }
         else
         {
             toast.Add("Usuario o contraseña incorrecta", Severity.Error);
+            cargando = false;
         }
 
     }

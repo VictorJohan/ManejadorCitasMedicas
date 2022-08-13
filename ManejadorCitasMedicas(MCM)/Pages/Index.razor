@@ -1,5 +1,10 @@
 ﻿@page "/Inicio"
 @inject UsuarioBLL usuarioBLL
+@inject Tools tool
+@inject IJSRuntime JS
+
+
+
 <AuthorizeView>  
     <Authorized>   
         <h4>Hello, @context.User.Identity.Name!</h4>  
@@ -14,9 +19,9 @@
 </AuthorizeView>
 
 @code {
-   
+
     protected override async Task OnInitializedAsync()
     {
-        
+        tool.AppBarTitulo = "Inicio";
     }
 }

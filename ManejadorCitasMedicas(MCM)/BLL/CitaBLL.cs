@@ -143,6 +143,66 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             }
         }
 
+        public async Task<string> SePuedeCrearCita(Citas cita)
+        {
+            string aviso = "";
+            try
+            {
+                aviso = await PacienteDisponible(cita);
 
+                return aviso;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(CitaBLL).Name}-SePuedeCrearCita");
+                return "Algo a salido mal...";
+            }
+        }
+
+        private async Task<string> PacienteDisponible(Citas cita)
+        {
+            DateTime medioDia = new DateTime(cita.Inicia.Year, cita.Inicia.Month, cita.Inicia.Day, 12, 0, 0);
+            try
+            {
+                var citas = await _contexto.Citas
+                    .Where(c => c.PacienteId == cita.PacienteId && c.Inicia.Day == cita.Inicia.Day && c.Inicia.Month == cita.Inicia.Month && c.Inicia.Year == cita.Inicia.Year)
+                    .ToListAsync();
+
+                //var citas = (from c in _contexto.Citas
+                //             where c.Inicia.ToShortDateString() == cita.Inicia.ToShortDateString() && c.PacienteId == cita.PacienteId
+                //             select c).ToList();
+
+                if (citas.Count == 0)
+                    return "";
+
+                var res1 = citas.Any(c => c.Inicia < medioDia);
+                var res2 = citas.Any(c => c.Inicia > medioDia);
+
+                if (res1 && cita.Inicia < medioDia)
+                {
+                    return "El paciente ya tiene una cita en la mañana.\nPuede agendar la cita en la tarde en caso de que no posea una.";
+                }
+
+                if (res2 && cita.Inicia > medioDia)
+                {
+                    return "El paciente ya tiene una cita en la tarde.\nPuede agendar la cita en la mañana del día siguiente en caso de que no posea una.";
+                }
+
+
+                if (res1 && res2)
+                {
+                    return "El paciente ya tiene una cita en la mañana y en la tarde.\nDe se posible puede agendar la cita para el día siguiente.";
+                }
+
+
+                return "";
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(CitaBLL).Name}-PacienteDisponible");
+                return "";
+            }
+
+        }
     }
 }

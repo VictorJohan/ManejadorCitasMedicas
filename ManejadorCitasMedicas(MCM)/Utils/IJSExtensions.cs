@@ -9,6 +9,10 @@ namespace ManejadorCitasMedicas_MCM_.Utils
             js.InvokeVoidAsync("animar403");
         }
 
-       
+        public static void SetTitulo(this IJSRuntime js, string titulo)
+        {
+            js.InvokeVoidAsync("setTitulo", titulo);
+        }
+
     }
 }
