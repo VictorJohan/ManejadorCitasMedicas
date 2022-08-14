@@ -3,7 +3,7 @@
 @inject ISnackbar toast
 @inject PacienteBLL pacienteBLL
 @inject NavigationManager nav
-
+@attribute [Authorize(Roles = "Usuario")]
 
 <MudTable Items="@ListaPaciente" FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true" Striped="@true" Filter="new Func<Models.Pacientes,bool>(FilterFunc1)" @ref="mudTable" @bind-SelectedItem="selectedItem1" T="Models.Pacientes">
     <ToolBarContent>

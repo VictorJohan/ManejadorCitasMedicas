@@ -79,6 +79,7 @@ background: linear-gradient(141deg, rgba(70,82,235,1) 0%, rgba(17,191,174,1) 48%
         {
             toast.Add("Usuario o contraseña incorrecta", Severity.Error);
             cargando = false;
+            StateHasChanged();
         }
 
     }

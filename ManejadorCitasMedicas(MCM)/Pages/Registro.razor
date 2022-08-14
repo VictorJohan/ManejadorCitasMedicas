@@ -11,8 +11,8 @@
     body{
         
         height: 100% !important;
-    background: rgb(255,255,255);
-background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(81,162,238,1) 33%, rgba(122,139,244,1) 58%, rgba(52,51,255,1) 81%, rgba(130,70,252,1) 99%);
+     background: rgb(70,82,235);
+background: linear-gradient(141deg, rgba(70,82,235,1) 0%, rgba(17,191,174,1) 48%, rgba(50,76,156,1) 100%);
         background-repeat: no-repeat;
     }
 </style>
@@ -24,6 +24,10 @@ background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(81,162,238,1) 3
 
         <DataAnnotationsValidator/>
         <div style="width:800px !important; margin-top: 10%" class="card shadow-lg">
+            @if (cargando)
+            {
+                    <MudProgressLinear Color="Color.Success" Indeterminate="true"  />
+            }
        <div class="card-header text-center">
         <h2>Registro</h2>
        </div>
@@ -67,7 +71,7 @@ background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(81,162,238,1) 3
     </EditForm>
 @code {
     Usuarios Usuario;
-    
+    bool cargando = false;
     protected override void OnInitialized()
     {
         Usuario = new();
@@ -75,20 +79,26 @@ background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(81,162,238,1) 3
 
     private async Task Rigistrar()
     {
-        if(await usuarioBLL.NombreUsuarioDisponible(Usuario.NombreUsuario))
+        if (await usuarioBLL.NombreUsuarioDisponible(Usuario.NombreUsuario))
         {
             tost.Add("El nombre de usuario ya esta siendo usado", Severity.Error);
             return;
         }
 
+        cargando = true;
+        StateHasChanged();
+
         if (await usuarioBLL.Registrar(Usuario))
         {
             tost.Add("Usuario registrado correctamente", Severity.Success);
+            cargando = false;
             nav.NavigateTo("/");
         }
         else
         {
-            tost.Add("Error al registrar usuario",  Severity.Error);
+            tost.Add("Error al registrar usuario", Severity.Error);
+            cargando = false;
+            StateHasChanged();
         }
 
     }

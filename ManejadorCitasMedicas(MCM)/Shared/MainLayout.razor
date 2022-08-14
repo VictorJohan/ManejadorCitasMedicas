@@ -4,7 +4,6 @@
 @inject ProtectedSessionStorage localStorage
 @inject MedicoBLL medicoBLL
 @inject UsuarioBLL usuarioBLL
-@inject UsuarioBLL usuarioBLL
 @inject Tools tool
 <AuthorizeView>
     <Authorized >
@@ -18,7 +17,15 @@
                 <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
                 <h3>@tool.AppBarTitulo</h3>
                 <MudSpacer />
-               <MudMenu Icon="@Icons.Material.Filled.Person" Color="Color.Inherit">
+                    @if(usuarioBLL.Usuario != null)
+                    {
+                        <label>@usuarioBLL.Usuario.Nombre @usuarioBLL.Usuario.Apellido</label>
+                    }
+                    else
+                    {
+                         <label>@medicoBLL.Medico.Nombres @medicoBLL.Medico.Apellidos</label>
+                    }
+                    <MudMenu Icon="@Icons.Material.Filled.Person" Color="Color.Inherit">
                   <div class="mr-5">
                       @* <MudMenuItem>Perfil</MudMenuItem>*@
                        <MudMenuItem OnClick="@Salir">Salir</MudMenuItem>
@@ -67,7 +74,7 @@ background: linear-gradient(183deg, rgba(255,255,255,1) 69%, rgba(81,162,238,1) 
     [CascadingParameter]
     private Task<AuthenticationState> authenticationStateTask { get; set; }
 
-   
+
 
     override protected async Task OnInitializedAsync()
     {
@@ -96,15 +103,19 @@ background: linear-gradient(183deg, rgba(255,255,255,1) 69%, rgba(81,162,238,1) 
         open = !open;
     }
 
-    void Salir()
+    async Task Salir()
     {
-        ((CustomAuth)Auth).Salir();
         nav.NavigateTo("/");
+        await EliminarSesiones();
+        ((CustomAuth)Auth).Salir();
+
+        usuarioBLL.Usuario = null;
+        medicoBLL.Medico = null;
     }
 
     void NavigateTo(string url)
     {
-       
+
         open = !open;
         nav.NavigateTo(url);
     }
@@ -120,11 +131,17 @@ background: linear-gradient(183deg, rgba(255,255,255,1) 69%, rgba(81,162,238,1) 
         }
 
         var medico = await localStorage.GetAsync<Medicos>("medico");
-       var res2 = medico.Success ? medico.Value : null;
+        var res2 = medico.Success ? medico.Value : null;
         if (res2 != null)
         {
             medicoBLL.Medico = res2;
             ((CustomAuth)Auth).IniciarMedico(medicoBLL.Medico);
         }
+    }
+
+    public async Task EliminarSesiones()
+    {
+        await localStorage.DeleteAsync("medico");
+        await localStorage.DeleteAsync("usuario");
     }
 }

@@ -3,6 +3,8 @@
 @inject ISnackbar toast
 @inject CitaBLL citaBLL
 @inject NavigationManager nav
+@attribute [Authorize(Roles = "Usuario")]
+
 
 <MudTable Items="@ListaCitas" FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true" Striped="@true" Filter="new Func<Models.Citas,bool>(FilterFunc1)" @ref="mudTable" @bind-SelectedItem="selectedItem1" T="Models.Citas">
     <ToolBarContent>

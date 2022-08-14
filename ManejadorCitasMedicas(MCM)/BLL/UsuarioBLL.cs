@@ -1,4 +1,5 @@
 ﻿using ManejadorCitasMedicas_MCM_.Models;
+using ManejadorCitasMedicas_MCM_.Utils;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
 
@@ -22,7 +23,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                     .Where(u => u.NombreUsuario == usuario && u.Contrasena == contraseña && u.Activo == true)
                     .SingleOrDefaultAsync();
 
-                if(user != null)
+                if (user != null)
                 {
                     Usuario = user;
                 }
@@ -44,7 +45,12 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                 usuario.FechaModificacion = DateTime.Now;
                 await _contexto.Usuarios.AddAsync(usuario);
 
-                return await _contexto.SaveChangesAsync() > 0;
+                var ok = await _contexto.SaveChangesAsync() > 0;
+
+                if (ok)
+                    EnviarSolicitudActivacion(usuario);
+
+                return ok;
             }
             catch (Exception ex)
             {
@@ -81,6 +87,20 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             {
                 Log.Fatal(ex, $"{typeof(UsuarioBLL).Name}-ActivarUsuario");
                 return true;
+            }
+        }
+
+        private void EnviarSolicitudActivacion(Usuarios usuario)
+        {
+            try
+            {
+                Notificaciones notificaciones = new Notificaciones();
+                notificaciones.ActivarUsuario(usuario);
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(UsuarioBLL).Name}-EnviarSolicitudActivacion");
+                return;
             }
         }
     }

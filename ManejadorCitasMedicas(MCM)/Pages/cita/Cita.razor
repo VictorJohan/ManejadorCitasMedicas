@@ -1,5 +1,6 @@
 ﻿@page "/cita"
 @page "/cita/{CitaId:int}"
+@attribute [Authorize(Roles = "Usuario")]
 
 @inject CitaBLL citaBLL
 @inject PacienteBLL expdienteBLL

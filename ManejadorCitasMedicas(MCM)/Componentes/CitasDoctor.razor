@@ -4,6 +4,8 @@
 @inject ISnackbar toast
 @inject Tools tool
 
+@attribute [Authorize(Roles = "Medico")]
+
 <div class="row mt-2">
     @if (ListaCitas.Count() > 0)
     {

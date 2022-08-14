@@ -1,5 +1,6 @@
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\appsettings.Development.json
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\appsettings.json
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\Logs\log.json
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\ManejadorCitasMedicas(MCM).staticwebassets.runtime.json
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\ManejadorCitasMedicas(MCM).exe
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\ManejadorCitasMedicas(MCM).deps.json
@@ -31,6 +32,7 @@ C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\Ma
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\Microsoft.JSInterop.dll
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\Microsoft.Win32.SystemEvents.dll
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\MudBlazor.dll
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\Newtonsoft.Json.dll
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\Serilog.dll
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\Serilog.AspNetCore.dll
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\Serilog.Enrichers.Environment.dll
@@ -83,4 +85,3 @@ C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\Ma
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).pdb
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).genruntimeconfig.cache
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ref\ManejadorCitasMedicas(MCM).dll
-C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\Newtonsoft.Json.dll

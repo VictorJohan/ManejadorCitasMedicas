@@ -15,9 +15,14 @@ namespace ManejadorCitasMedicas_MCM_.Controller
         }
 
         [HttpGet("activar")]
-        public async Task<ActionResult> Activar(int id)
+        public async Task Activar(int id)
         {
-            return Ok(await usuarioBLL.ActivarUsuario(id));
+            var res = await usuarioBLL.ActivarUsuario(id);
+
+            if (res)
+                Response.Redirect("/listo");
+
+
         }
     }
 }

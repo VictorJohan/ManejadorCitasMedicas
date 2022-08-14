@@ -27,6 +27,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50ZXNcRXhwZWRpZW50ZU1vZGFsLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Componentes/MCM.razor]
+build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50ZXNcTUNNLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Componentes/MedicosModal.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50ZXNcTWVkaWNvc01vZGFsLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -49,6 +53,14 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/FetchData.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/home/HomeMedico.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcaG9tZVxIb21lTWVkaWNvLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/home/HomeUsuario.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcaG9tZVxIb21lVXN1YXJpby5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/Index.razor]
@@ -85,6 +97,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/UnAuthorize.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVW5BdXRob3JpemUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/ResponsePages/Listo.razor]
+build_metadata.AdditionalFiles.TargetPath = UmVzcG9uc2VQYWdlc1xMaXN0by5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Shared/LoginLayout.razor]
