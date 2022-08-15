@@ -1,23 +1,23 @@
-﻿
+﻿@inject CitaBLL citaBLL
 <div class="card shadow-lg" style="width: 350px">
-    @if (Cita.Activo)
+    @if (Cita.Atendida)
     {
-                <div class="card-header text-white bg-primary">
-                    <h4>@Cita.NombrePaciente</h4>
-                </div>
+                        <div class="card-header text-white bg-primary">
+                            <h4>@Cita.NombrePaciente</h4>
+                        </div>
     }
     else
     {
-                <div class="card-header text-white bg-secondary">
-                    <h4>@Cita.NombrePaciente</h4>
-                </div>
+                        <div class="card-header text-white bg-secondary">
+                            <h4>@Cita.NombrePaciente</h4>
+                        </div>
     }
     <div class="card-body">
         <h5><b>Inicia:</b> @Cita.Inicia.ToString("g", CultureInfo.GetCultureInfo("en-US"))</h5>
 
             <h5>
                 <b>Finalizó:</b> 
-                @(!Cita.Activo ? Cita.Termina.ToString("g", CultureInfo.GetCultureInfo("en-US")) : "--------")
+            @(!Cita.Atendida ? Cita.Termina.ToString("g", CultureInfo.GetCultureInfo("en-US")) : "--------")
             </h5>
         <h5><b>Descripción:</b> @Cita.Descripcion</h5>
         <h5><b>Creada:</b> @Cita.FechaCreacion.ToString("g", CultureInfo.GetCultureInfo("en-US"))</h5>
@@ -25,9 +25,9 @@
     </div>
     <div class="card-footer">
         <div class="form-check">
-            <input @bind="Cita.Activo" type="checkbox" class="form-check-input" id="checkbox">
+            <input checked="@Cita.Atendida" type="checkbox"@oninput="CheckboxChanged" class="form-check-input" id="checkbox">
             <label class="form-check-label" for="checkbox">
-               Activa
+               Atendida
             </label>
         </div>
     </div>
@@ -37,4 +37,13 @@
     [Parameter]
     public Models.Citas Cita { get; set; }
 
+
+
+
+    private async Task CheckboxChanged(ChangeEventArgs e)
+    {
+
+        Cita.Atendida = (bool)e.Value;
+        await citaBLL.Save(Cita);
+    }
 }

@@ -31,9 +31,9 @@ builder.Services.AddServerSideBlazor();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuth>();
 builder.Services.AddMudServices();
 builder.Services.AddMudBlazorDialog();
-builder.Services.AddDbContext<SanVicentePaulDBContext>(options =>
-               options.UseSqlServer(
-                   config.GetConnectionString("DefaultConnection")));
+builder.Services.AddDbContext<SanVicentePaulDBContext>(
+    options => options.UseSqlServer(config.GetConnectionString("DefaultConnection"))
+    );
 
 //Servicios
 builder.Services.AddTransient<ProvinciaBLL>();

@@ -13,7 +13,7 @@ namespace ManejadorCitasMedicas_MCM_.Models
         public DateTime Termina { get; set; } = DateTime.Now;
         [Range(minimum: 1, maximum: Int64.MaxValue, ErrorMessage = "Debe seleccionar un paciente.")]
         public int PacienteId { get; set; }
-        [Range(minimum:1, maximum: Int64.MaxValue, ErrorMessage ="Debe seleccionar un médico.")]
+        [Range(minimum: 1, maximum: Int64.MaxValue, ErrorMessage = "Debe seleccionar un médico.")]
         public int MedicoId { get; set; }
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
         public DateTime FechaModificacion { get; set; } = DateTime.Now;
@@ -25,6 +25,8 @@ namespace ManejadorCitasMedicas_MCM_.Models
         [NotMapped]
         public string NombreUsuarioCreacion { get; set; } = "";
         public int UsuarioModificacion { get; set; }
+        public bool Atendida { get; set; } = false;
         public bool Activo { get; set; } = true;
+
     }
 }

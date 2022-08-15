@@ -8,7 +8,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
     public class UsuarioBLL
     {
         private SanVicentePaulDBContext _contexto { get; set; }
-        public Usuarios Usuario { get; set; } = new();
+        public Usuarios Usuario { get; set; } = null;
 
         public UsuarioBLL(SanVicentePaulDBContext contexto)
         {

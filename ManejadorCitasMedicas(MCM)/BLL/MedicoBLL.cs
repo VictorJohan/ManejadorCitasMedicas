@@ -10,7 +10,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
     {
         private readonly SanVicentePaulDBContext _contexto;
 
-        public Medicos Medico { get; set; } = new();
+        public Medicos Medico { get; set; } = null;
 
         public MedicoBLL(SanVicentePaulDBContext contexto)
         {

@@ -20,7 +20,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             try
             {
                 var cita = await Get(id);
-                cita.Activo = false;
+                cita.Atendida = false;
                 return await Update(cita);
             }
             catch (Exception ex)
@@ -62,7 +62,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                                       MedicoId = c.MedicoId,
                                       Inicia = c.Inicia,
                                       Termina = c.Termina,
-                                      Activo = c.Activo,
+                                      Atendida = c.Atendida,
                                       Descripcion = c.Descripcion,
                                       NombrePaciente = $"{p.Nombre} {p.PrimerApellido}",
                                       NombreMedico = $"{m.Nombres} {m.Apellidos}"
@@ -91,7 +91,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                                  MedicoId = c.MedicoId,
                                  Inicia = c.Inicia,
                                  Termina = c.Termina,
-                                 Activo = c.Activo,
+                                 Atendida = c.Atendida,
                                  Descripcion = c.Descripcion,
                                  NombrePaciente = $"{p.Nombre} {p.PrimerApellido}",
                                  NombreUsuarioCreacion = $"{u.Nombre} {u.Apellido}"
@@ -133,6 +133,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
         {
             try
             {
+                Detach(entity);
                 _contexto.Entry(entity).State = EntityState.Modified;
                 return await _contexto.SaveChangesAsync() > 0;
             }
@@ -156,6 +157,18 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             {
                 Log.Fatal(ex, $"{typeof(CitaBLL).Name}-SePuedeCrearCita");
                 return "Algo a salido mal...";
+            }
+        }
+
+        private void Detach(Citas cita)
+        {
+            var aux = _contexto
+                   .Set<Citas>()
+                   .Local.FirstOrDefault(c => c.CitaId == cita.CitaId);
+
+            if (aux != null)
+            {
+                _contexto.Entry(aux).State = EntityState.Detached;
             }
         }
 
