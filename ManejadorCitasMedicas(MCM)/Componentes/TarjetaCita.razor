@@ -44,6 +44,7 @@
     {
 
         Cita.Atendida = (bool)e.Value;
+        Cita.Termina = DateTime.Now;
         await citaBLL.Save(Cita);
     }
 }

@@ -7,49 +7,54 @@
 @attribute [Authorize(Roles = "Medico")]
 
 
-<div class="row mt-2">
     <MudTabs Elevation="2" Rounded="true" Centered="true" Class="mb-1">
         <MudTabPanel Icon="@Icons.Material.Filled.Article" Text="Pendiente" BadgeData="@ListaCitasPendientes.Count" BadgeColor="Color.Info">
-            @if (ListaCitasPendientes.Count() > 0)
+            <div class="row mt-2">
+                @if (ListaCitasPendientes.Count() > 0)
             {
                 foreach (var c in ListaCitasPendientes)
                 {
-                    <div class="col-sm-3 pl-0 mt-2 pr-0">
-                        <div class="mb-2">
-                             <TarjetaCita Cita="c"></TarjetaCita>
-                        </div>
+                             <div class="col-sm-3 pl-0 mt-2 pr-0">
+                                 <div class="mb-2">
+                                      <TarjetaCita Cita="c"></TarjetaCita>
+                                 </div>
 
-                    </div>
+                             </div>
                 }
             }
             else
             {
-            <h1 class="text-center">No hay citas agendadas</h1>
+                    <h1 class="text-center">No hay citas agendadas</h1>
             }
+            </div>
+
         </MudTabPanel>
         <MudTabPanel Icon="@Icons.Material.Filled.Article" Text="Atendida" BadgeData="@ListaCitasAtendidas.Count" BadgeColor="Color.Info">
-             @if (ListaCitasAtendidas.Count() > 0)
+            <div class="row mt-2">
+            @if (ListaCitasAtendidas.Count() > 0)
             {
                 foreach (var c in ListaCitasAtendidas)
                 {
-                    <div class="col-sm-3 pl-0 mt-2 pr-0">
-                        <div class="mb-2">
-                             <TarjetaCita Cita="c"></TarjetaCita>
-                        </div>
+                                    <div class="col-sm-3 pl-0 mt-2 pr-0">
+                                        <div class="mb-2">
+                                             <TarjetaCita Cita="c"></TarjetaCita>
+                                        </div>
 
-                    </div>
+                                    </div>
                 }
             }
             else
             {
-            <h1 class="text-center">No hay citas agendadas</h1>
+                    <h1 class="text-center">No hay citas agendadas</h1>
             }
+            </div>
+
         </MudTabPanel>
-      
+
     </MudTabs>
 
 
-</div>
+
 
 @code {
     List<Citas> ListaCitasPendientes = new();
@@ -66,19 +71,15 @@
     {
         if (firstRender)
         {
-            //using var periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(5));
-            //while (await periodicTimer.WaitForNextTickAsync())
-            //{
-            //    var auxList = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId && c.Activo == false);
-            //    ListaCitasAtendidas = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId && c.Activo == true);
-            //    if (auxList.Count() > ListaCitasPendientes.Count())
-            //    {
-            //        toast.Add("Tiene una nueva cita", Severity.Info);
-            //        ListaCitasPendientes = auxList;
-            //    }
+            using var periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(2));
+            while (await periodicTimer.WaitForNextTickAsync())
+            {
+                 ListaCitasPendientes = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId && c.Atendida == false);
+                ListaCitasAtendidas = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId && c.Atendida == true);
 
-            //    await InvokeAsync(StateHasChanged);
-            //}
+
+                await InvokeAsync(StateHasChanged);
+            }
         }
     }
 }

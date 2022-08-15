@@ -82,6 +82,10 @@
               "target": "Package",
               "version": "[3.3.0, )"
             },
+            "SpreadsheetLight": {
+              "target": "Package",
+              "version": "[3.5.0, )"
+            },
             "mudblazor": {
               "target": "Package",
               "version": "[6.0.12, )"

@@ -49,6 +49,9 @@ background: linear-gradient(183deg, rgba(255,255,255,1) 69%, rgba(81,162,238,1) 
                         <MudNavLink Icon="@Icons.Filled.Person" OnClick="@(() => NavigateTo("/pacientes"))">
                             Pacientes
                         </MudNavLink>
+                        <MudNavLink Icon="@Icons.Filled.HealthAndSafety" OnClick="@(() => NavigateTo("/medicos"))">
+                            Medicos
+                        </MudNavLink>
                     </AuthorizeView>
                     <AuthorizeView Context="medico" Roles="Medico">
                          <MudNavLink Icon="@Icons.Filled.Home" OnClick="@(() => NavigateTo("/inicio"))">

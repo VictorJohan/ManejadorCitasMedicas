@@ -92,6 +92,8 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                                  Inicia = c.Inicia,
                                  Termina = c.Termina,
                                  Atendida = c.Atendida,
+                                 UsuarioCreacion = u.UsuarioId,
+                                 UsuarioModificacion = c.UsuarioModificacion,
                                  Descripcion = c.Descripcion,
                                  NombrePaciente = $"{p.Nombre} {p.PrimerApellido}",
                                  NombreUsuarioCreacion = $"{u.Nombre} {u.Apellido}"

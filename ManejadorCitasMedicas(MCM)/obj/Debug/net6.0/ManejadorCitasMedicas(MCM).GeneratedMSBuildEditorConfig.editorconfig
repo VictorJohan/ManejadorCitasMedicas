@@ -75,6 +75,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcTG9naW5NZWRpY28ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/medico/Medico.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcbWVkaWNvXE1lZGljby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/medico/Medicos.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcbWVkaWNvXE1lZGljb3MucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/paciente/Componentes/Direccion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGFjaWVudGVcQ29tcG9uZW50ZXNcRGlyZWNjaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 

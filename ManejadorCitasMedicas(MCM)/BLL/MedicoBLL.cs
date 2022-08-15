@@ -72,6 +72,31 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             }
         }
 
+        public async Task<bool> SaveFromExcel(Medicos medico)
+        {
+            try
+            {
+                if (!_contexto.Especialidades.Any(s => s.Nombre == medico.NombreEspecialidad))
+                {
+                    _contexto.Especialidades.Add(new Especialidades { Nombre = medico.NombreEspecialidad });
+                    _contexto.SaveChanges();
+                }
+
+                var especialidadId = _contexto.Especialidades.First(s => s.Nombre == medico.NombreEspecialidad).EspecialidadId;
+                medico.EspecialidadId = especialidadId;
+
+                _contexto.Add(medico);
+                await _contexto.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                Log.Fatal(ex, $"{typeof(MedicoBLL).Name}-SaveFromExcel");
+                return false;
+            }
+        }
+
+
         public async Task<List<Medicos>> GetAll()
         {
             try

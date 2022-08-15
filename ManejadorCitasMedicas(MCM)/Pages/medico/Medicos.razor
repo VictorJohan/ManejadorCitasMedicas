@@ -1,0 +1,150 @@
+﻿@page "/medicos"
+@inject Tools tool
+@inject ISnackbar toast
+@inject MedicoBLL medicoBLL
+@inject NavigationManager nav
+@attribute [Authorize(Roles = "Usuario")]
+
+@if (cargando)
+{
+    <MudProgressLinear Indeterminate="true" Color="Color.Success" Class="my-7"/>
+}
+<MudTable Items="@ListaMedico"  FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true"  Striped="@true" Filter="new Func<Models.Medicos,bool>(FilterFunc1)" @ref="mudTable"  T="Models.Medicos">
+            <ToolBarContent>
+               <a class="btn btn-primary" href="/medico">
+                    Nuevo Medico
+                </a>
+               <MudButton HtmlTag="label" Variant="Variant.Filled" Class="ml-1" Color="Color.Success" StartIcon="@Icons.Custom.FileFormats.FileExcel" for="fileInput">
+                    Importar Excel
+                </MudButton>
+                <MudSpacer />
+                <MudTextField @bind-Value="searchString1" Placeholder="Buscar" Adornment="Adornment.Start" AdornmentIcon="@Icons.Material.Filled.Search" IconSize="Size.Medium" Class="mt-0"></MudTextField>
+            </ToolBarContent>
+            <HeaderContent>
+                <MudTh>Nombres</MudTh>
+                <MudTh>Apellidos</MudTh>
+                <MudTh>Especialidad</MudTh>
+                <MudTh>Cedula</MudTh>
+                <MudTh>Oficio</MudTh>
+            </HeaderContent>
+            <RowTemplate>
+                <MudTd DataLabel="Nombres">@context.Nombres</MudTd>
+                <MudTd DataLabel="Apellidos">@context.Apellidos</MudTd>
+                <MudTd DataLabel="NombreEspecialidad">@context.NombreEspecialidad</MudTd>
+                <MudTd DataLabel="Cedula">@context.Cedula</MudTd>
+                <MudTd DataLabel="Oficio">@context.Oficio</MudTd>
+
+            </RowTemplate>
+            <PagerContent>
+                <MudTablePager />
+            </PagerContent>
+</MudTable>
+
+<InputFile id="fileInput" OnChange="SubirArchivo" hidden />
+@code {
+    IList<IBrowserFile> files = new List<IBrowserFile>();
+    List<Models.Medicos> ExcelMedicos = new List<Models.Medicos>();
+    private MudTable<Models.Medicos> mudTable;
+    private Models.Medicos selectedItem1 = null;
+    private string searchString1 = "";
+    private HashSet<Models.Medicos> selectedItems = new HashSet<Models.Medicos>();
+
+    private IEnumerable<Models.Medicos> ListaMedico = new List<Models.Medicos>();
+
+    bool cargando = false;
+   
+
+    protected override async Task OnInitializedAsync()
+    {
+        tool.AppBarTitulo = "Listado de Medicos";
+        ListaMedico = new List<Models.Medicos>();
+        ListaMedico = await medicoBLL.GetAll();
+    }
+
+
+    public void Ver(int id)
+    {
+        nav.NavigateTo($"/medico/{id}");
+    }
+
+    private async Task Eliminar(int id)
+    {
+        if (await medicoBLL.Delete(id))
+        {
+            toast.Add("Lito", Severity.Success);
+            ListaMedico = await medicoBLL.GetAll();
+        }
+    }
+
+    private bool FilterFunc1(Models.Medicos element) => FilterFunc(element, searchString1);
+
+    private bool FilterFunc(Models.Medicos element, string searchString)
+    {
+        if (string.IsNullOrWhiteSpace(searchString))
+            return true;
+        if (element.Nombres.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Apellidos.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Cedula.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.Oficio.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+        if (element.NombreEspecialidad.Contains(searchString, StringComparison.OrdinalIgnoreCase))
+            return true;
+
+        return false;
+    }
+
+    private async void SubirArchivo(InputFileChangeEventArgs e)
+    {
+        string path = $"{Directory.GetCurrentDirectory()}\\Reources\\Medicos.xlsx";
+        await using( FileStream fs = new(path, FileMode.Create))
+        {
+            await e.File.OpenReadStream().CopyToAsync(fs);
+            fs.Close();
+        }
+
+        await Leer(path);
+    }
+
+
+    private async Task Leer(string path)
+    {
+        var sl = new SLDocument(path);
+
+        int iRow = 2;
+        while (!string.IsNullOrEmpty(sl.GetCellValueAsString(iRow, 1)))
+        {
+            var m = new Models.Medicos();
+            m.Apellidos = sl.GetCellValueAsString(iRow, 1);
+            m.Nombres = sl.GetCellValueAsString(iRow, 2);
+            m.Cedula = sl.GetCellValueAsString(iRow, 3);
+            m.Oficio = sl.GetCellValueAsString(iRow, 4);
+            m.NombreEspecialidad = sl.GetCellValueAsString(iRow, 5);
+            m.Activo = true;
+            ExcelMedicos.Add(m);
+
+            iRow++;
+        }
+        sl.Dispose();
+        await Insertar();
+    }
+
+    private async Task Insertar()
+    {
+        int i = 0;
+        cargando = true;
+        StateHasChanged();
+        foreach (var item in ExcelMedicos)
+        {
+            await medicoBLL.SaveFromExcel(item);
+
+            StateHasChanged();
+        }
+        cargando = false;
+        ListaMedico = await medicoBLL.GetAll();
+        StateHasChanged();
+    }
+
+}

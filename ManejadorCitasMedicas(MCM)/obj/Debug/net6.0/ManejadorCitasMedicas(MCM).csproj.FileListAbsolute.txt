@@ -85,3 +85,6 @@ C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\Ma
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).pdb
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ManejadorCitasMedicas(MCM).genruntimeconfig.cache
 C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\obj\Debug\net6.0\ref\ManejadorCitasMedicas(MCM).dll
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\DocumentFormat.OpenXml.dll
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\SpreadsheetLight.dll
+C:\Users\Victor Johan\Desktop\Monografico\Proyecto\ManejadorCitasMedicas(MCM)\ManejadorCitasMedicas(MCM)\bin\Debug\net6.0\System.IO.Packaging.dll
