@@ -3,11 +3,12 @@
 @inject ISnackbar toast
 @inject MedicoBLL medicoBLL
 @inject NavigationManager nav
+@inject ResponseDialog rd
 @attribute [Authorize(Roles = "Usuario")]
 
 @if (cargando)
 {
-    <MudProgressLinear Indeterminate="true" Color="Color.Success" Class="my-7"/>
+        <MudProgressLinear Indeterminate="true" Color="Color.Success" Class="my-7"/>
 }
 <MudTable Items="@ListaMedico"  FixedHeader="@true" FixedFooter="@true" Height="500px" Hover="@true"  Striped="@true" Filter="new Func<Models.Medicos,bool>(FilterFunc1)" @ref="mudTable"  T="Models.Medicos">
             <ToolBarContent>
@@ -26,6 +27,7 @@
                 <MudTh>Especialidad</MudTh>
                 <MudTh>Cedula</MudTh>
                 <MudTh>Oficio</MudTh>
+                <MudTh>Acciones</MudTh>
             </HeaderContent>
             <RowTemplate>
                 <MudTd DataLabel="Nombres">@context.Nombres</MudTd>
@@ -33,7 +35,9 @@
                 <MudTd DataLabel="NombreEspecialidad">@context.NombreEspecialidad</MudTd>
                 <MudTd DataLabel="Cedula">@context.Cedula</MudTd>
                 <MudTd DataLabel="Oficio">@context.Oficio</MudTd>
-
+                 <MudTd>
+            <MudIcon @onclick="(() => Ver(context.MedicoId))" Style="cursor: pointer; margin-right: 10px" Color="Color.Primary" Icon="@Icons.Filled.Edit"></MudIcon>
+            <MudIcon @onclick="(() => Eliminar(context.MedicoId))" Style="cursor: pointer" Color="Color.Error" Icon="@Icons.Filled.Delete"/></MudTd>
             </RowTemplate>
             <PagerContent>
                 <MudTablePager />
@@ -45,14 +49,13 @@
     IList<IBrowserFile> files = new List<IBrowserFile>();
     List<Models.Medicos> ExcelMedicos = new List<Models.Medicos>();
     private MudTable<Models.Medicos> mudTable;
-    private Models.Medicos selectedItem1 = null;
     private string searchString1 = "";
     private HashSet<Models.Medicos> selectedItems = new HashSet<Models.Medicos>();
 
     private IEnumerable<Models.Medicos> ListaMedico = new List<Models.Medicos>();
 
     bool cargando = false;
-   
+
 
     protected override async Task OnInitializedAsync()
     {
@@ -69,11 +72,15 @@
 
     private async Task Eliminar(int id)
     {
-        if (await medicoBLL.Delete(id))
+        if (await rd.ShowQuestion("¿Seguro que deseas eliminar este registro?"))
         {
-            toast.Add("Lito", Severity.Success);
-            ListaMedico = await medicoBLL.GetAll();
+            if (await medicoBLL.Delete(id))
+            {
+                toast.Add("Listo", Severity.Success);
+                ListaMedico = await medicoBLL.GetAll();
+            }
         }
+
     }
 
     private bool FilterFunc1(Models.Medicos element) => FilterFunc(element, searchString1);
@@ -99,7 +106,7 @@
     private async void SubirArchivo(InputFileChangeEventArgs e)
     {
         string path = $"{Directory.GetCurrentDirectory()}\\Reources\\Medicos.xlsx";
-        await using( FileStream fs = new(path, FileMode.Create))
+        await using (FileStream fs = new(path, FileMode.Create))
         {
             await e.File.OpenReadStream().CopyToAsync(fs);
             fs.Close();

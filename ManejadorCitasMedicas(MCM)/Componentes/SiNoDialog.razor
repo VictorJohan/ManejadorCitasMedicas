@@ -1,0 +1,25 @@
+﻿<MudDialog>
+    <TitleContent>
+        <MudText Typo="Typo.h6">
+           @Titulo
+        </MudText>
+    </TitleContent>
+    <DialogContent>
+       @Pregunta
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="No">Cancelar</MudButton>
+        <MudButton Color="Color.Error" OnClick="Si">Eliminar</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] 
+    MudDialogInstance MudDialog { get; set; }
+    [Parameter]
+    public string Pregunta { get; set; }
+    [Parameter]
+    public string Titulo { get; set; }
+
+    void Si() => MudDialog.Close(DialogResult.Ok(true));
+    void No() => MudDialog.Cancel();
+}

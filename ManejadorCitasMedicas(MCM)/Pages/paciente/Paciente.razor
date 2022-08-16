@@ -4,6 +4,7 @@
 @inject ISnackbar toast;
 @inject PacienteBLL pacienteBLL
 @inject Tools tool
+@inject ResponseDialog rd
 
 @attribute [Authorize(Roles = "Usuario")]
 
@@ -25,7 +26,12 @@
     </div>
 </EditForm>
 
-<button type="button" @onclick="(() => Guardar())" class="btn btn-success ml-3 mt-3">Guardar</button>
+
+            <div class="d-flex mt-2">
+                  <button type="button" @onclick="Guardar" class="btn btn-success">Gaurdar</button>
+                  <button type="button" @onclick="Limpiar" class="btn btn-primary ml-2">Nuevo</button>
+                  <button type="button" @onclick="Eliminar" class="btn btn-danger ml-2">Elimminar</button>
+              </div>
 @code {
     [Parameter]
     public int Id { get; set; }
@@ -51,5 +57,22 @@
         {
             toast.Add("Ha ocurrido un error al guardar el pacinte...", Severity.Error);
         }
+    }
+
+    public async Task Eliminar()
+    {
+        if (await rd.ShowQuestion("¿Seguro que deseas eliminar este registro?"))
+        {
+
+            if (await pacienteBLL.Delete(Id))
+            {
+                toast.Add("Listo", Severity.Success);
+            }
+        }
+    }
+
+    public void Limpiar()
+    {
+        PacienteModel = new();
     }
 }

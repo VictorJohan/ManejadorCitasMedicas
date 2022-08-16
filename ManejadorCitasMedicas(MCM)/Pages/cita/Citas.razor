@@ -3,6 +3,7 @@
 @inject ISnackbar toast
 @inject CitaBLL citaBLL
 @inject NavigationManager nav
+@inject ResponseDialog rd
 @attribute [Authorize(Roles = "Usuario")]
 
 
@@ -58,11 +59,16 @@
 
     private async Task Eliminar(int id)
     {
-        if(await citaBLL.Delete(id))
+        if (await rd.ShowQuestion("¿Seguro que deseas eliminar este registro?"))
         {
-            toast.Add("Lito", Severity.Success);
-            ListaCitas = await citaBLL.GetAll();
+            if (await citaBLL.Delete(id))
+            {
+                toast.Add("Listo", Severity.Success);
+                ListaCitas = await citaBLL.GetAll();
+            }
         }
+
+
     }
 
     private bool FilterFunc1(Models.Citas element) => FilterFunc(element, searchString1);

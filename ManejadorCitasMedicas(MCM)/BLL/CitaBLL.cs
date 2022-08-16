@@ -20,7 +20,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             try
             {
                 var cita = await Get(id);
-                cita.Atendida = false;
+                cita.Activo = false;
                 return await Update(cita);
             }
             catch (Exception ex)

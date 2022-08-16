@@ -44,7 +44,9 @@ builder.Services.AddScoped<MedicoBLL>();
 builder.Services.AddTransient<PacienteBLL>();
 builder.Services.AddTransient<CitaBLL>();
 builder.Services.AddScoped<UsuarioBLL>();
+builder.Services.AddScoped<EspecialidadBLL>();
 builder.Services.AddScoped<Tools>();
+builder.Services.AddScoped<ResponseDialog>();
 
 try
 {

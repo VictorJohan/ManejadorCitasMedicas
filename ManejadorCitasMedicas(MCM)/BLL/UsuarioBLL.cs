@@ -94,7 +94,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
         {
             try
             {
-                Notificaciones notificaciones = new Notificaciones();
+                Notificaciones notificaciones = new();
                 notificaciones.ActivarUsuario(usuario);
             }
             catch (Exception ex)

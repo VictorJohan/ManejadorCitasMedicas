@@ -59,7 +59,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
         {
             try
             {
-                var lista = await _contexto.Pacientes.ToListAsync();
+                var lista = await _contexto.Pacientes.Where(p => p.Activo == true).ToListAsync();
                 return lista;
             }
             catch (Exception ex)
@@ -110,6 +110,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
         {
             try
             {
+                Detach(entity);
                 _contexto.Entry(entity).State = EntityState.Modified;
                 return await _contexto.SaveChangesAsync() > 0;
             }
@@ -120,6 +121,17 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             }
         }
 
+        private void Detach(Pacientes paciente)
+        {
+            var aux = _contexto
+                   .Set<Pacientes>()
+                   .Local.FirstOrDefault(c => c.PacienteId == paciente.PacienteId);
+
+            if (aux != null)
+            {
+                _contexto.Entry(aux).State = EntityState.Detached;
+            }
+        }
         public async Task<string> GetNoExpediente()
         {
             try

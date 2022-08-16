@@ -56,6 +56,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                                         Email = m.Email,
                                         Telefono = m.Telefono,
                                         Cargo = m.Cargo,
+                                        Contrasena = m.Contrasena,
                                         EspecialidadId = m.EspecialidadId,
                                         NombreEspecialidad = e.Nombre,
                                         Activo = m.Activo
@@ -82,11 +83,14 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                     _contexto.SaveChanges();
                 }
 
-                var especialidadId = _contexto.Especialidades.First(s => s.Nombre == medico.NombreEspecialidad).EspecialidadId;
-                medico.EspecialidadId = especialidadId;
+                if(!_contexto.Medicos.Any(m => m.Cedula == medico.Cedula))
+                {
+                    var especialidadId = _contexto.Especialidades.First(s => s.Nombre == medico.NombreEspecialidad).EspecialidadId;
+                    medico.EspecialidadId = especialidadId;
+                    _contexto.Add(medico);
+                    await _contexto.SaveChangesAsync();
+                }
 
-                _contexto.Add(medico);
-                await _contexto.SaveChangesAsync();
                 return true;
             }
             catch (Exception ex)
@@ -102,7 +106,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             try
             {
                 var lista = await (from m in _contexto.Medicos
-                                   join e in _contexto.Especialidades on m.EspecialidadId equals e.EspecialidadId
+                                   join e in _contexto.Especialidades on m.EspecialidadId equals e.EspecialidadId where m.Activo == true
                                    select new Medicos
                                    {
                                        MedicoId = m.MedicoId,
@@ -167,6 +171,7 @@ namespace ManejadorCitasMedicas_MCM_.BLL
         {
             try
             {
+                Detach(entity);
                 _contexto.Entry(entity).State = EntityState.Modified;
                 return await _contexto.SaveChangesAsync() > 0;
             }
@@ -174,6 +179,18 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             {
                 Log.Fatal(ex, $"{typeof(MedicoBLL).Name}-Update");
                 return false;
+            }
+        }
+
+        private void Detach(Medicos medico)
+        {
+            var aux = _contexto
+                   .Set<Medicos>()
+                   .Local.FirstOrDefault(m => m.MedicoId == medico.MedicoId);
+
+            if (aux != null)
+            {
+                _contexto.Entry(aux).State = EntityState.Detached;
             }
         }
 

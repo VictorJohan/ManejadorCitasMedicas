@@ -7,6 +7,7 @@
 @inject MedicoBLL medicoBLL
 @inject UsuarioBLL usuarioBLL
 @inject Tools tool
+@inject ResponseDialog rd
 
 @inject IDialogService DialogService
 @inject ISnackbar toast
@@ -90,17 +91,14 @@
             <div class="row">
                 <div class="col-sm-6">
 
-             <button  class="btn btn-success mt-2 w-100">Guardar</button>
-                </div>
-                <div class="col-sm-6">
-             <button type="button" @onclick="Limpiar" class="btn btn-primary mt-2 w-100">Nuevo</button>
+            <div class="d-flex mt-2">
+                  <button class="btn btn-success">Gaurdar</button>
+                  <button type="button" @onclick="Limpiar" class="btn btn-primary ml-2">Nuevo</button>
+                  <button type="button" @onclick="Eliminar" class="btn btn-danger ml-2">Elimminar</button>
+              </div>
 
                 </div>
             </div>
-
-        </div>
-
-        <div class="col-sm-6">
 
         </div>
     </div>
@@ -173,6 +171,23 @@
         else
         {
             toast.Add("Error, no se logro guardar la cita.", Severity.Error);
+        }
+
+    }
+
+    public async Task Eliminar()
+    {
+        if (await rd.ShowQuestion("¿Seguro que deseas eliminar este registro?"))
+        {
+            if (await citaBLL.Delete(CitaId))
+            {
+                toast.Add("Cita Eliminada", Severity.Success);
+                Limpiar();
+            }
+            else
+            {
+                toast.Add("No se logró eliminar la cita", Severity.Error);
+            }
         }
 
     }

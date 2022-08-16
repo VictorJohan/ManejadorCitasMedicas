@@ -18,6 +18,6 @@ namespace ManejadorCitasMedicas_MCM_.Models
         [NotMapped]
         public string NombreEspecialidad { get; set; } = "";
         public int EspecialidadId { get; set; }
-        public bool Activo { get; set; }
+        public bool Activo { get; set; } = true;
     }
 }
