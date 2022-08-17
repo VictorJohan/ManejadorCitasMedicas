@@ -60,6 +60,38 @@ namespace ManejadorCitasMedicas_MCM_.BLL
             }
         }
 
+        public async Task<bool> CambiarContrasena(Usuarios usuario)
+        {
+            try
+            {
+                usuario.FechaModificacion = DateTime.Now;
+                Detach(usuario);
+                _contexto.Entry(usuario).State = EntityState.Modified;
+                var ok = await _contexto.SaveChangesAsync() > 0;
+
+                return ok;
+            }
+            catch (Exception ex)
+            {
+
+                Log.Fatal(ex, $"{typeof(UsuarioBLL).Name}-Registrar");
+                return false;
+            }
+        }
+
+        private void Detach(Usuarios usuario)
+        {
+
+            var aux = _contexto
+                   .Set<Usuarios>()
+                   .Local.FirstOrDefault(c => c.UsuarioId == usuario.UsuarioId);
+
+            if (aux != null)
+            {
+                _contexto.Entry(aux).State = EntityState.Detached;
+            }
+        }
+
         public async Task<bool> NombreUsuarioDisponible(string nombre)
         {
             try

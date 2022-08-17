@@ -87,6 +87,10 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcbWVkaWNvXE1lZGljb3MucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/medico/PerfilMedico.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcbWVkaWNvXFBlcmZpbE1lZGljby5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/paciente/Componentes/Direccion.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGFjaWVudGVcQ29tcG9uZW50ZXNcRGlyZWNjaW9uLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
@@ -103,12 +107,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGFjaWVudGVcUGFjaWVudGVzLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/perfil/Perfil.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNccGVyZmlsXFBlcmZpbC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/Registro.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcUmVnaXN0cm8ucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/UnAuthorize.razor]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXNcVW5BdXRob3JpemUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/Pages/usuario/PerfilUsuario.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXNcdXN1YXJpb1xQZXJmaWxVc3VhcmlvLnJhem9y
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/Victor Johan/Desktop/Monografico/Proyecto/ManejadorCitasMedicas(MCM)/ManejadorCitasMedicas(MCM)/ResponsePages/Listo.razor]

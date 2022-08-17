@@ -5,6 +5,7 @@
 @inject ISnackbar toast
 @inject Tools tool
 @inject ResponseDialog rd
+
 @attribute [Authorize(Roles = "Usuario")]
 
 <EditForm Model="MedicoModel" OnValidSubmit="Guardar">
@@ -20,14 +21,14 @@
             <div class="col-sm-6">
                 <div class="form-group">
                      <label>Nombres</label>
-                     <input @bind="MedicoModel.Nombres" class="form-control" />
+                      <input readonly="@IsReadOnly" @bind="MedicoModel.Nombres" class="form-control" />
                      <ValidationMessage For="(() => MedicoModel.Nombres)" />
                 </div>
             </div>
             <div class="col-sm-6">
                  <div class="form-group">
                      <label>Apellidos</label>
-                     <input @bind="MedicoModel.Apellidos" class="form-control" />
+                      <input readonly="@IsReadOnly" @bind="MedicoModel.Apellidos" class="form-control" />
                      <ValidationMessage For="(() => MedicoModel.Apellidos)" />
                 </div>
             </div>
@@ -37,7 +38,7 @@
 
                 <div class="form-group">
                      <label>Cédula</label>
-                     <input @bind="MedicoModel.Cedula" class="form-control" />
+                      <input readonly="@IsReadOnly"  @bind="MedicoModel.Cedula" class="form-control" />
                      <ValidationMessage For="(() => MedicoModel.Cedula)" />
                 </div>
 
@@ -45,7 +46,7 @@
 
                  <div class="form-group">
                      <label>Oficio</label>
-                     <input @bind="MedicoModel.Oficio" class="form-control" />
+                      <input readonly="@IsReadOnly" @bind="MedicoModel.Oficio" class="form-control" />
                      <ValidationMessage For="(() => MedicoModel.Oficio)" />
                 </div>
 
@@ -57,7 +58,7 @@
                          <option value="0">Seleccionna una especialidad</option>
                     @foreach (var item in Especialidades)
                     {
-                            <option value="@item.EspecialidadId">@item.Nombre</option>
+                                <option value="@item.EspecialidadId">@item.Nombre</option>
                     }
                      </select>
                      <ValidationMessage For="(() => MedicoModel.Contrasena)" />
@@ -67,7 +68,7 @@
 
                  <div class="form-group">
                      <label>Email</label>
-                     <input @bind="MedicoModel.Email" class="form-control" />
+                      <input readonly="@IsReadOnly" @bind="MedicoModel.Email" class="form-control" />
                      <ValidationMessage For="(() => MedicoModel.Email)" />
                 </div>
 
@@ -75,23 +76,26 @@
 
                  <div class="form-group">
                      <label>Contraseña</label>
-                     <input type="password" @bind="MedicoModel.Contrasena" class="form-control" />
+                      <input readonly="@IsReadOnly" type="password" @bind="MedicoModel.Contrasena" class="form-control" />
                      <ValidationMessage For="(() => MedicoModel.Contrasena)" />
                 </div>
 
             @*Telefono*@
                  <div class="form-group">
                      <label>Teléfono</label>
-                     <input @bind="MedicoModel.Telefono" class="form-control" />
+                      <input @bind="MedicoModel.Telefono" class="form-control" />
                      <ValidationMessage For="(() => MedicoModel.Telefono)" />
                 </div>
           </div>
           <div class="card-footer">
               <div class="d-flex">
                   <button class="btn btn-success">Gaurdar</button>
-                  <button type="button" @onclick="Limpiar" class="btn btn-primary ml-2">Nuevo</button>
-                  <button type="button" @onclick="Eliminar" class="btn btn-danger ml-2">Elimminar</button>
-              </div>
+                @if (!IsReadOnly)
+                {
+                      <button type="button" @onclick="Limpiar" class="btn btn-primary ml-2">Nuevo</button>
+                      <button type="button" @onclick="Eliminar" class="btn btn-danger ml-2">Elimminar</button>
+                }
+            </div>
           </div>
     </div>
 
@@ -100,8 +104,10 @@
 @code {
     [Parameter]
     public int MedicoId { get; set; }
-
-    Models.Medicos MedicoModel;
+    [Parameter]
+    public bool IsReadOnly { get; set; } = false;
+    [Parameter]
+    public Models.Medicos MedicoModel { get; set; }
     List<Models.Especialidades> Especialidades = new();
 
     protected override async Task OnInitializedAsync()
@@ -114,14 +120,17 @@
         {
             MedicoModel = await medicoBLL.Get(MedicoId);
         }
+
+        
     }
 
     public async Task Guardar()
     {
         if (await medicoBLL.Save(MedicoModel))
         {
-            toast.Add("Médico Guardado", Severity.Success);
-            Limpiar();
+            toast.Add("Guardado", Severity.Success);
+            if (!IsReadOnly)
+                Limpiar();
         }
         else
         {

@@ -1,0 +1,95 @@
+﻿@inject MedicoBLL medicoBLL
+@inject ISnackbar toast
+@inject ProtectedSessionStorage localStorage
+
+<MudTabs Outlined="true" Position="Position.Left" Rounded="true" Border="true"
+    ApplyEffectsToContainer="true" Class="mt-8" PanelClass="pa-6">
+    <MudTabPanel Text="Información Básica">
+        <div class="w-100">
+            <Medico IsReadOnly="@true" MedicoModel="@medico"></Medico>        
+        </div>       
+    </MudTabPanel>
+    <MudTabPanel Text="Cambiar Contraseña">
+       <div class="row">
+            @*Contrasena anterior*@
+         <div class="form-group">
+              <label>Contraseña Anterior</label>
+               <input type="password" @bind="contrasenaAnterior" class="form-control" />
+         </div>
+
+          @*Contrasena Nueva*@
+         <div class="form-group">
+              <label>Contraseña Nueva</label>
+               <input  type="password" @bind="contrasenaNueva" class="form-control" />
+         </div>
+
+          @*Contrasena Confirmacion*@
+         <div class="form-group">
+              <label>Contraseña Anterior</label>
+               <input  type="password" @bind="contrasenaConfir" class="form-control" />
+         </div>
+
+         <button type="button" @onclick="CambiarContrasena" class="btn btn-success mt-2 ml-3 col-sm-4">Guardar</button>
+       </div>
+    </MudTabPanel>
+
+</MudTabs>
+@code {
+    Models.Medicos medico;
+
+    string contrasenaAnterior = "";
+    string contrasenaNueva = "";
+    string contrasenaConfir = "";
+
+    protected override void OnInitialized()
+    {
+        if(medicoBLL.Medico != null)
+        {
+            medico = medicoBLL.Medico;
+        }
+
+    }
+
+    protected override async void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
+        {
+            using var periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(1));
+            while (await periodicTimer.WaitForNextTickAsync())
+            {
+
+                medico = medicoBLL.Medico;
+
+                await InvokeAsync(StateHasChanged);
+            }
+        }
+    }
+
+    public async Task CambiarContrasena()
+    {
+        if(medicoBLL.Medico.Contrasena != contrasenaAnterior)
+        {
+            toast.Add("La contraseña anterior es incorrecta", Severity.Error);
+            return;
+        }
+
+        if(contrasenaNueva != contrasenaConfir)
+        {
+            toast.Add("Las contraseñas no coinciden", Severity.Error);
+            return;
+        }
+
+        medico.Contrasena = contrasenaNueva;
+
+        if(await medicoBLL.Save(medico))
+        {
+            toast.Add("Guardado", Severity.Success);
+            medicoBLL.Medico.Contrasena = contrasenaNueva;
+            await localStorage.SetAsync("medico", medicoBLL.Medico);
+            contrasenaAnterior = "";
+            contrasenaNueva = "";
+            contrasenaConfir = "";
+        }
+    }
+
+}

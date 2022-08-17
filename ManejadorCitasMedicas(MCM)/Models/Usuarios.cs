@@ -8,7 +8,7 @@ namespace ManejadorCitasMedicas_MCM_.Models
     public partial class Usuarios
     {
         public int UsuarioId { get; set; }
-        [Required(ErrorMessage =" Este campo es obligatorio."), MaxLength(50, ErrorMessage = "Longitud máxima alcanzada")]
+        [Required(ErrorMessage = " Este campo es obligatorio."), MaxLength(50, ErrorMessage = "Longitud máxima alcanzada")]
         public string Nombre { get; set; } = "";
         [Required(ErrorMessage = " Este campo es obligatorio."), MaxLength(50, ErrorMessage = "Longitud máxima alcanzada")]
         public string Apellido { get; set; } = "";
@@ -19,6 +19,7 @@ namespace ManejadorCitasMedicas_MCM_.Models
         [Compare("Contrasena", ErrorMessage = "Las contraseñas no coinciden.")]
         [NotMapped]
         public string ConfirmarContrasena { get; set; } = "";
+        public string Email { get; set; } = "";
         public DateTime FechaCreacion { get; set; }
         public DateTime FechaModificacion { get; set; }
         public bool Activo { get; set; } = false;

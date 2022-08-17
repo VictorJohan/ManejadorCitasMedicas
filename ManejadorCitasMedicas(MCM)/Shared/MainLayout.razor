@@ -5,6 +5,8 @@
 @inject MedicoBLL medicoBLL
 @inject UsuarioBLL usuarioBLL
 @inject Tools tool
+@inject ResponseDialog rd
+
 <AuthorizeView>
     <Authorized >
         <MudThemeProvider/>
@@ -17,17 +19,18 @@
                 <MudIconButton Icon="@Icons.Material.Filled.Menu" Color="Color.Inherit" Edge="Edge.Start" OnClick="@ToggleDrawer" />
                 <h3>@tool.AppBarTitulo</h3>
                 <MudSpacer />
-                    @if(usuarioBLL.Usuario != null)
+                    @if (usuarioBLL.Usuario != null)
                     {
-                        <label>@usuarioBLL.Usuario.Nombre @usuarioBLL.Usuario.Apellido</label>
+                            <label>@usuarioBLL.Usuario.Nombre @usuarioBLL.Usuario.Apellido</label>
                     }
                     else
                     {
-                         <label>@medicoBLL.Medico.Nombres @medicoBLL.Medico.Apellidos</label>
+                             <label>@medicoBLL.Medico.Nombres @medicoBLL.Medico.Apellidos</label>
                     }
                     <MudMenu Icon="@Icons.Material.Filled.Person" Color="Color.Inherit">
                   <div class="mr-5">
-                      @* <MudMenuItem>Perfil</MudMenuItem>*@
+                            @* <MudMenuItem>Perfil</MudMenuItem>*@
+                       <MudMenuItem Href="/perfil">Perfil</MudMenuItem>
                        <MudMenuItem OnClick="@Salir">Salir</MudMenuItem>
                   </div>
                </MudMenu>
@@ -108,12 +111,15 @@ background: linear-gradient(183deg, rgba(255,255,255,1) 69%, rgba(81,162,238,1) 
 
     async Task Salir()
     {
-        nav.NavigateTo("/");
-        await EliminarSesiones();
-        ((CustomAuth)Auth).Salir();
+        if (await rd.ShowQuestion("¿Seguro que deseas salir?"))
+        {
+            nav.NavigateTo("/");
+            await EliminarSesiones();
+            ((CustomAuth)Auth).Salir();
 
-        usuarioBLL.Usuario = null;
-        medicoBLL.Medico = null;
+            usuarioBLL.Usuario = null;
+            medicoBLL.Medico = null;
+        }
     }
 
     void NavigateTo(string url)

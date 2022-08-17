@@ -1,0 +1,20 @@
+﻿@page "/perfil"
+@using ManejadorCitasMedicas_MCM_.Pages.medico
+@using ManejadorCitasMedicas_MCM_.Pages.usuario
+@attribute [Authorize(Roles = "Usuario, Medico")]
+
+<AuthorizeView Roles="Medico">
+    <Authorized>
+    <PerfilMedico></PerfilMedico>
+    </Authorized>
+</AuthorizeView>
+
+<AuthorizeView Roles="Usuario">
+    <Authorized>
+    <PerfilUsuario></PerfilUsuario>
+    </Authorized>
+</AuthorizeView>
+
+@code {
+
+}
