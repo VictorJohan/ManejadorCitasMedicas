@@ -9,10 +9,11 @@ namespace ManejadorCitasMedicas_MCM_.BLL
     public class CitaBLL : ICRUD<Citas>, IListable<Citas>
     {
         private readonly SanVicentePaulDBContext _contexto;
-
-        public CitaBLL(SanVicentePaulDBContext contexto)
+        private readonly MedicoBLL medicoBLL;
+        public CitaBLL(SanVicentePaulDBContext contexto, MedicoBLL medicoBLL)
         {
             _contexto = contexto;
+            this.medicoBLL = medicoBLL;
         }
 
         public async Task<bool> Delete(int id)
@@ -177,18 +178,18 @@ namespace ManejadorCitasMedicas_MCM_.BLL
         private async Task<string> PacienteDisponible(Citas cita)
         {
             DateTime medioDia = new DateTime(cita.Inicia.Year, cita.Inicia.Month, cita.Inicia.Day, 12, 0, 0);
+            var medico = await medicoBLL.Get(cita.MedicoId);
+
             try
             {
                 var citas = await _contexto.Citas
                     .Where(c => c.PacienteId == cita.PacienteId && c.Inicia.Day == cita.Inicia.Day && c.Inicia.Month == cita.Inicia.Month && c.Inicia.Year == cita.Inicia.Year)
                     .ToListAsync();
 
-                //var citas = (from c in _contexto.Citas
-                //             where c.Inicia.ToShortDateString() == cita.Inicia.ToShortDateString() && c.PacienteId == cita.PacienteId
-                //             select c).ToList();
+                var citasMedico = await _contexto.Citas
+                   .Where(c => c.MedicoId == cita.MedicoId && c.Inicia.Day == cita.Inicia.Day && c.Inicia.Month == cita.Inicia.Month && c.Inicia.Year == cita.Inicia.Year)
+                   .ToListAsync();
 
-                if (citas.Count == 0)
-                    return "";
 
                 var res1 = citas.Any(c => c.Inicia < medioDia);
                 var res2 = citas.Any(c => c.Inicia > medioDia);
@@ -209,7 +210,14 @@ namespace ManejadorCitasMedicas_MCM_.BLL
                     return "El paciente ya tiene una cita en la mañana y en la tarde.\nDe se posible puede agendar la cita para el día siguiente.";
                 }
 
+                if(citasMedico.Count >= medico.CantidadCita)
+                {
+                    return $"El médcio solo puede tener {medico.CantidadCita} citas al día.";
+                }
 
+                if (citas.Count == 0)
+                    return "";
+               
                 return "";
             }
             catch (Exception ex)

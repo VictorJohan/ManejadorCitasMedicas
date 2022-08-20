@@ -9,7 +9,7 @@
 
     <MudTabs Elevation="2" Rounded="true" Centered="true" Class="mb-1">
         <MudTabPanel Icon="@Icons.Material.Filled.Article" Text="Pendiente" BadgeData="@ListaCitasPendientes.Count" BadgeColor="Color.Info">
-            <input @bind="fechaPendiente" type="date" class="form-control mt-1 w-50"/>
+            <input @bind="fecha" type="date" class="form-control mt-1 w-50"/>
             <div class="row mt-2 pl-3 pr-3">
                 @if (ListaCitasPendientes.Count() > 0)
             {
@@ -31,7 +31,7 @@
 
         </MudTabPanel>
         <MudTabPanel Icon="@Icons.Material.Filled.Article" Text="Atendida" BadgeData="@ListaCitasAtendidas.Count" BadgeColor="Color.Info">
-             <input @bind="fechaAtendida" type="date" class="form-control mt-1 w-50"/>
+             <input @bind="fecha" type="date" class="form-control mt-1 w-50"/>
             <div class="row mt-2">
             @if (ListaCitasAtendidas.Count() > 0)
             {
@@ -56,16 +56,15 @@
     </MudTabs>
 
 @code {
-    DateTime fechaPendiente;
-    DateTime fechaAtendida;
+    DateTime fecha;
+   
     List<Citas> ListaCitasPendientes = new();
     List<Citas> ListaCitasAtendidas = new();
 
     protected override async Task OnInitializedAsync()
     {
         tool.AppBarTitulo = "Mis Citas";
-        fechaPendiente = DateTime.Now;
-        fechaAtendida = DateTime.Now;
+        fecha = DateTime.Now;
         await GetCitas();
     }
 
@@ -88,14 +87,14 @@
     {
         ListaCitasPendientes = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId
             && c.Atendida == false
-            && c.Inicia.Day == fechaPendiente.Day
-            && c.Inicia.Month == fechaPendiente.Month
-            && c.Inicia.Year == fechaPendiente.Year);
+            && c.Inicia.Day == fecha.Day
+            && c.Inicia.Month == fecha.Month
+            && c.Inicia.Year == fecha.Year);
 
         ListaCitasAtendidas = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId
             && c.Atendida == true
-            && c.Inicia.Day == fechaAtendida.Day
-            && c.Inicia.Month == fechaAtendida.Month
-            && c.Inicia.Year == fechaAtendida.Year);
+            && c.Inicia.Day == fecha.Day
+            && c.Inicia.Month == fecha.Month
+            && c.Inicia.Year == fecha.Year);
     }
 }

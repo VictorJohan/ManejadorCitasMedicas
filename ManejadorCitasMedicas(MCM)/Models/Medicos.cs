@@ -13,6 +13,7 @@ namespace ManejadorCitasMedicas_MCM_.Models
         public string Oficio { get; set; } = "";
         public string Email { get; set; } = "";
         public string Telefono { get; set; } = "";
+        public int CantidadCita { get; set; } = 16;
         public string Cargo { get; set; } = "";
         public string Contrasena { get; set; } = "";
         [NotMapped]
