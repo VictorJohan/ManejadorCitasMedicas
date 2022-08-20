@@ -9,43 +9,45 @@
 
     <MudTabs Elevation="2" Rounded="true" Centered="true" Class="mb-1">
         <MudTabPanel Icon="@Icons.Material.Filled.Article" Text="Pendiente" BadgeData="@ListaCitasPendientes.Count" BadgeColor="Color.Info">
-            <div class="row mt-2">
+            <input @bind="fechaPendiente" type="date" class="form-control mt-1 w-50"/>
+            <div class="row mt-2 pl-3 pr-3">
                 @if (ListaCitasPendientes.Count() > 0)
             {
                 foreach (var c in ListaCitasPendientes)
                 {
-                             <div class="col-sm-3 pl-0 mt-2 pr-0">
-                                 <div class="mb-2">
-                                      <TarjetaCita Cita="c"></TarjetaCita>
-                                 </div>
+                            <div class="col-sm-3 pl-0 mt-2 pr-0">
+                                <div class="mb-2">
+                                     <TarjetaCita Cita="c"></TarjetaCita>
+                                </div>
 
-                             </div>
+                            </div>
                 }
             }
             else
             {
-                    <h1 class="text-center">No hay citas agendadas</h1>
+                        <h1 class="text-center">No hay citas agendadas para este día</h1>
             }
             </div>
 
         </MudTabPanel>
         <MudTabPanel Icon="@Icons.Material.Filled.Article" Text="Atendida" BadgeData="@ListaCitasAtendidas.Count" BadgeColor="Color.Info">
+             <input @bind="fechaAtendida" type="date" class="form-control mt-1 w-50"/>
             <div class="row mt-2">
             @if (ListaCitasAtendidas.Count() > 0)
             {
                 foreach (var c in ListaCitasAtendidas)
                 {
-                                    <div class="col-sm-3 pl-0 mt-2 pr-0">
-                                        <div class="mb-2">
-                                             <TarjetaCita Cita="c"></TarjetaCita>
-                                        </div>
+                            <div class="col-sm-3 pl-0 mt-2 pr-0">
+                                <div class="mb-2">
+                                     <TarjetaCita Cita="c"></TarjetaCita>
+                                </div>
 
-                                    </div>
+                            </div>
                 }
             }
             else
             {
-                    <h1 class="text-center">No hay citas agendadas</h1>
+                        <h1 class="text-center">No hay citas agendadas para este día</h1>
             }
             </div>
 
@@ -53,18 +55,18 @@
 
     </MudTabs>
 
-
-
-
 @code {
+    DateTime fechaPendiente;
+    DateTime fechaAtendida;
     List<Citas> ListaCitasPendientes = new();
     List<Citas> ListaCitasAtendidas = new();
 
     protected override async Task OnInitializedAsync()
     {
         tool.AppBarTitulo = "Mis Citas";
-        ListaCitasPendientes = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId && c.Atendida == false);
-        ListaCitasAtendidas = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId && c.Atendida == true);
+        fechaPendiente = DateTime.Now;
+        fechaAtendida = DateTime.Now;
+        await GetCitas();
     }
 
     protected override async void OnAfterRender(bool firstRender)
@@ -74,12 +76,26 @@
             using var periodicTimer = new PeriodicTimer(TimeSpan.FromSeconds(2));
             while (await periodicTimer.WaitForNextTickAsync())
             {
-                 ListaCitasPendientes = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId && c.Atendida == false);
-                ListaCitasAtendidas = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId && c.Atendida == true);
+                await GetCitas();
 
 
                 await InvokeAsync(StateHasChanged);
             }
         }
+    }
+
+    async Task GetCitas()
+    {
+        ListaCitasPendientes = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId
+            && c.Atendida == false
+            && c.Inicia.Day == fechaPendiente.Day
+            && c.Inicia.Month == fechaPendiente.Month
+            && c.Inicia.Year == fechaPendiente.Year);
+
+        ListaCitasAtendidas = await citaBLL.ListWhere(c => c.MedicoId == medicoBLL.Medico.MedicoId
+            && c.Atendida == true
+            && c.Inicia.Day == fechaAtendida.Day
+            && c.Inicia.Month == fechaAtendida.Month
+            && c.Inicia.Year == fechaAtendida.Year);
     }
 }

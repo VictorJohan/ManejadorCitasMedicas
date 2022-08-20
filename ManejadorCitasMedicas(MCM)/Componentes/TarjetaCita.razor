@@ -1,6 +1,6 @@
 ﻿@inject CitaBLL citaBLL
 <div class="card shadow-lg" style="width: 350px">
-    @if (Cita.Atendida)
+    @if (!Cita.Atendida)
     {
                         <div class="card-header text-white bg-primary">
                             <h4>@Cita.NombrePaciente</h4>
@@ -17,7 +17,7 @@
 
             <h5>
                 <b>Finalizó:</b> 
-            @(!Cita.Atendida ? Cita.Termina.ToString("g", CultureInfo.GetCultureInfo("en-US")) : "--------")
+            @(Cita.Atendida ? Cita.Termina.ToString("g", CultureInfo.GetCultureInfo("en-US")) : "--------")
             </h5>
         <h5><b>Descripción:</b> @Cita.Descripcion</h5>
         <h5><b>Creada:</b> @Cita.FechaCreacion.ToString("g", CultureInfo.GetCultureInfo("en-US"))</h5>
@@ -25,8 +25,8 @@
     </div>
     <div class="card-footer">
         <div class="form-check">
-            <input checked="@Cita.Atendida" type="checkbox"@oninput="CheckboxChanged" class="form-check-input" id="checkbox">
-            <label class="form-check-label" for="checkbox">
+            <input checked="@Cita.Atendida" disabled="@isReadOnly()" type="checkbox"@oninput="CheckboxChanged" class="form-check-input">
+            <label class="form-check-label">
                Atendida
             </label>
         </div>
@@ -34,11 +34,14 @@
 </div>
 
 @code {
-    [Parameter]
-    public Models.Citas Cita { get; set; }
+        [Parameter]
+        public Models.Citas Cita { get; set; }
 
 
-
+        bool isReadOnly()
+        {
+            return !(DateTime.Now.Day >= Cita.Inicia.Day && DateTime.Now.Month >= Cita.Inicia.Month && DateTime.Now.Year >= Cita.Inicia.Year);
+        }
 
     private async Task CheckboxChanged(ChangeEventArgs e)
     {
