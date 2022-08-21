@@ -44,10 +44,15 @@
 
         @*Oficio*@
 
-                 <div class="form-group">
+                <div class="form-group">
                      <label>Oficio</label>
                       <input readonly="@IsReadOnly" @bind="MedicoModel.Oficio" class="form-control" />
                      <ValidationMessage For="(() => MedicoModel.Oficio)" />
+                </div>
+
+                 <div class="form-group">
+                     <label>Citas por Día</label>
+                      <input readonly="@IsReadOnly" type="number" @bind="MedicoModel.CantidadCita" class="form-control" />
                 </div>
 
         @*Especialidad*@
@@ -58,7 +63,7 @@
                          <option value="0">Seleccionna una especialidad</option>
                     @foreach (var item in Especialidades)
                     {
-                                <option value="@item.EspecialidadId">@item.Nombre</option>
+                                    <option value="@item.EspecialidadId">@item.Nombre</option>
                     }
                      </select>
                      <ValidationMessage For="(() => MedicoModel.Contrasena)" />
@@ -92,8 +97,8 @@
                   <button class="btn btn-success">Gaurdar</button>
                 @if (!IsReadOnly)
                 {
-                      <button type="button" @onclick="Limpiar" class="btn btn-primary ml-2">Nuevo</button>
-                      <button type="button" @onclick="Eliminar" class="btn btn-danger ml-2">Elimminar</button>
+                          <button type="button" @onclick="Limpiar" class="btn btn-primary ml-2">Nuevo</button>
+                          <button type="button" @onclick="Eliminar" class="btn btn-danger ml-2">Elimminar</button>
                 }
             </div>
           </div>
@@ -121,7 +126,7 @@
             MedicoModel = await medicoBLL.Get(MedicoId);
         }
 
-        
+
     }
 
     public async Task Guardar()
